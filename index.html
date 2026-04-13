@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Taha Ed-Dafili | Portfolio</title>
+    <meta name="title" content="Taha Ed-Dafili | Portfolio">
+    <meta name="description" content="Portfolio of Taha Ed-Dafili, a software engineering student specializing in System & Kernel Development, Linux, and Embedded Hardware.">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://orayn.github.io/">
+    <meta property="og:title" content="Taha Ed-Dafili | Digital Technologies Architect">
+    <meta property="og:description" content="Portfolio of Taha Ed-Dafili, specializing in System & Kernel Development, Linux, and Embedded Hardware.">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630/0d1117/2ea043?text=Taha+Ed-Dafili+Portfolio">
+
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://orayn.github.io/">
+    <meta property="twitter:title" content="Taha Ed-Dafili | Digital Technologies Architect">
+    <meta property="twitter:description" content="Portfolio of Taha Ed-Dafili, specializing in System & Kernel Development, Linux, and Embedded Hardware.">
+    <meta property="twitter:image" content="https://via.placeholder.com/1200x630/0d1117/2ea043?text=Taha+Ed-Dafili+Portfolio">
+
+    <style>
+        :root {
+            --bg-color: #0d1117;
+            --text-main: #c9d1d9;
+            --text-muted: #8b949e;
+            --accent: #2ea043;
+            --accent-hover: #3fb950;
+            --border: #30363d;
+            --card-bg: #161b22;
+            --warning: #d29922;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Courier New', Courier, monospace;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        a:hover {
+            color: var(--accent-hover);
+            text-decoration: underline;
+        }
+
+        .container {
+            max-width: 950px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            margin-bottom: 50px;
+            border-bottom: 1px dashed var(--border);
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+
+        .contact-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+        
+        .contact-links a, .contact-links span {
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+
+        .resume-btn {
+            color: var(--warning) !important;
+            font-weight: bold;
+            border: 1px dashed var(--warning);
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: background-color 0.2s, color 0.2s !important;
+        }
+
+        .resume-btn:hover {
+            background-color: #3d2e0f; /* Slight golden tint for dark mode */
+            text-decoration: none !important;
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        h2 {
+            font-size: 1.6rem;
+            color: #ffffff;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+
+        .prompt {
+            color: var(--accent);
+            margin-right: 10px;
+            font-size: 1.4rem;
+        }
+
+        .command {
+            color: var(--text-main);
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            border-color: var(--text-muted);
+            transform: translateY(-2px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+            flex-wrap: wrap;
+        }
+
+        .card-title {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: #ffffff;
+        }
+
+        /* Specific styling for project title links */
+        .card-title a {
+            color: #ffffff;
+            border-bottom: 1px dashed var(--accent);
+            text-decoration: none;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .card-title a:hover {
+            color: var(--accent);
+            border-bottom-style: solid;
+            text-decoration: none;
+        }
+
+        .card-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .card-subtitle {
+            color: var(--accent);
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .badge-inactive {
+            font-size: 0.8rem;
+            background-color: #21262d;
+            color: var(--warning);
+            padding: 2px 6px;
+            border: 1px solid var(--warning);
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .badge-freelance {
+            font-size: 0.8rem;
+            background-color: #1f6feb26;
+            color: #58a6ff;
+            padding: 2px 6px;
+            border: 1px solid #1f6feb;
+            border-radius: 4px;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        .card-body {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+        }
+
+        .card-text {
+            flex: 1;
+        }
+
+        .card-image {
+            width: 300px;
+            flex-shrink: 0;
+            border-radius: 4px;
+            border: 1px solid var(--border);
+            opacity: 0.85;
+            transition: opacity 0.3s ease;
+            object-fit: cover;
+        }
+
+        .card-image:hover {
+            opacity: 1;
+        }
+
+        ul {
+            list-style-type: none;
+        }
+
+        ul li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+        }
+
+        ul li::before {
+            content: ">>";
+            position: absolute;
+            left: 0;
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            top: 4px;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-category {
+            background-color: var(--card-bg);
+            padding: 15px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+        }
+
+        .skill-category h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        footer {
+            text-align: center;
+            border-top: 1px dashed var(--border);
+            padding-top: 20px;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            .card-body {
+                flex-direction: column-reverse;
+            }
+            .card-image {
+                width: 100%;
+                max-height: 250px;
+            }
+        }
+        @media (max-width: 600px) {
+            .card-header {
+                flex-direction: column;
+            }
+            .card-date {
+                margin-top: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>TAHA ED-DAFILI</h1>
+        <div class="subtitle">Digital Technologies Architect | System & Kernel Development</div>
+        <div class="contact-links">
+            <a href="https://github.com/Orayn" target="https://github.com/0rayn">[ GitHub ]</a>
+            <a href="https://linkedin.com/in/taha-ed-dafili" target="https://www.linkedin.com/in/taha-ed-dafili/">[ LinkedIn ]</a>
+            <a href="https://0rayn.github.io/WhyNot/" target="https://0rayn.github.io/WhyNot/">[ Blog ]</a>
+            <a href="TAHA_CV.pdf" download="Taha_Ed-Dafili_Resume.pdf" class="resume-btn">[ Resume.pdf ]</a>
+        </div>
+    </header>
+
+    <section id="about">
+        <h2><span class="prompt">user@host:~$</span><span class="command">cat ~/about_me.txt</span></h2>
+        <p>
+            I am a fifth-year engineering student at 1337-UM6P (42 Network) specializing in the Kernel and Systems branch. My technical philosophy is rooted in first-principles thinking: I build systems from the ground up to truly understand how they work. While my core focus lies in Linux kernel development and driver engineering, I have also completed numerous reverse engineering projects and hardware hacking initiatives. Beyond building things, I love teaching and sharing knowledge, acting as a strong advocate for self-directed, project-based learning and peer-to-peer education.
+        </p>
+    </section>
+
+    <section id="experience">
+        <h2><span class="prompt">user@host:~$</span><span class="command">cat ~/experiences.log</span></h2>
+        
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Linux Foundation LFX Mentee</span>
+                <span class="card-date">Spring 2026 – Present</span>
+            </div>
+            <span class="card-subtitle">Linux Kernel | IIO Subsystem</span>
+            <div class="card-body">
+                <div class="card-text">
+                    <ul>
+                        <li>Contributing directly to the Linux kernel under the mentorship of kernel maintainers Shuah Khan and Brigham Campbell.</li>
+                        <li>Focusing on the Industrial I/O (IIO) subsystem, working on driver engineering and kernel patching.</li>
+                    </ul>
+                </div>
+                <img class="card-image" src="lfx.png" alt="Linux Kernel Contribution">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Mentor - IoT & Electronics<span class="badge-freelance">Freelance</span></span>
+                <span class="card-date">02/2025 - 07/2025</span>
+            </div>
+            <span class="card-subtitle">Youth Tech Challenge Africa (YTCA) @ UM6P | Multi-national Event (Morocco & Cameroon)</span>
+            <div class="card-body">
+                <div class="card-text">
+                    <ul>
+                        <li>Mentored student teams in a collaborative, multi-national event between Morocco and Cameroon, focusing on electronics, IoT, sensors, and prototyping.</li>
+                        <li>Guided projects focused on sustainable urban design from concept to final presentation.</li>
+                        <li>Facilitated cross-cultural collaboration and complex problem-solving workshops.</li>
+                    </ul>
+                </div>
+                <img class="card-image" src="ytca.jpeg" alt="YTCA Mentorship Session">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">C Developer Intern</span>
+                <span class="card-date">07/2024 - 01/2025</span>
+            </div>
+            <span class="card-subtitle">M2M Group | Nouaceur</span>
+            <div class="card-body">
+                <div class="card-text">
+                    <ul>
+                        <li>Optimized backend POS and authorization servers in C for high-performance transaction processing.</li>
+                        <li>Analyzed logs to resolve complex system issues and contributed to QA of embedded POS applications.</li>
+                        <li>Collaborated with technical teams on system design and optimization.</li>
+                    </ul>
+                </div>
+                <img class="card-image" src="tpe.png" alt="M2M Internship">
+            </div>
+        </div>
+    </section>
+
+    <section id="volunteering">
+        <h2><span class="prompt">user@host:~$</span><span class="command">cat ~/volunteering.log</span></h2>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Technical Lead</span>
+                <span class="card-date">02/2025 - Present</span>
+            </div>
+            <span class="card-subtitle">Architecture Technology Club (Archi&Tech) @ UM6P | Ben Guerir</span>
+            <div class="card-body">
+                <div class="card-text">
+                    <ul>
+                        <li>Directed technical vision integrating electronics, robotics, and IoT into architectural curricula.</li>
+                        <li>Organized the LDC Competition, designing technical challenges and advising student teams.</li>
+                    </ul>
+                </div>
+                <img class="card-image" src="archi.jpeg" alt="Archi and Tech Competition">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Vice President</span>
+                <span class="card-date">08/2025 - Present</span>
+            </div>
+            <span class="card-subtitle">Leet Makers Club @ 1337 | Ben Guerir</span>
+            <div class="card-body">
+                <div class="card-text">
+                    <ul>
+                        <li>Managed robotics and hardware hacking initiatives; conducted technical workshops on embedded Linux and microcontrollers.</li>
+                        <li>Oversaw strategic planning, event organization, and technical training programs for new members.</li>
+                    </ul>
+                </div>
+                <img class="card-image" src="leet.jpeg" alt="Leet Makers Club Workshop">
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <h2><span class="prompt">user@host:~$</span><span class="command">ls -l ~/projects/</span></h2>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title"><a href="https://github.com/WNH-Organization/The-3020-Project" target="_blank">The 3020 Project</a></span>
+                <span class="card-date">System & Embedded Projects</span>
+            </div>
+            <span class="card-subtitle">Founder & Maintainer (C/OpenWrt/PlatformIO)</span>
+            <div class="card-body">
+                <div class="card-text">
+                    <ul>
+                        <li>Architected a distributed computing system using a TL-MR3020 router as a central orchestrator.</li>
+                        <li>Engineered a custom userspace keyboard bridge in C to interface with kernel device nodes.</li>
+                        <li>Stripped the OpenWrt OS to fit within 4MB flash constraints by removing non-essential modules.</li>
+                        <li>Designed custom text-based protocols over TCP (Port 1337) and UART for real-time hardware control.</li>
+                    </ul>
+                </div>
+                <img class="card-image" src="3020.webp" alt="The 3020 Project Hardware">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title"><a href="https://github.com/B-Gyro/B-Gyro" target="_blank">B-Gyro-Kernel From Scratch (x86)</a><span class="badge-inactive">Inactive</span></span>
+                <span class="card-date">Group of two</span>
+            </div>
+            <span class="card-subtitle">C / x86 Assembly</span>
+            <div class="card-body">
+                <div class="card-text">
+                    <ul>
+                        <li>Co-engineered a Multiboot-compliant 32-bit x86 operating system kernel from scratch.</li>
+                        <li>Implemented core components: bootstrapping, GDT/IDT interrupts, drivers (PIT, RTC, Keyboard), and PCI.</li>
+                        <li>Leveraged QEMU emulation for rapid debugging and reliability testing before bare-metal deployment.</li>
+                        <li>Built VGA text/graphics subsystems and an interactive shell for low-level system inspection.</li>
+                    </ul>
+                </div>
+                <img class="card-image" src="bgyro.jpeg" alt="B-Gyro Kernel Booting">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                 <span class="card-title"><a href="https://github.com/WNH-Organization/esp-VGA-Displayer" target="_blank">ESP-VGA-Displayer</a></span>
+                <span class="card-date">Networked Debugging Display</span>
+            </div>
+            <span class="card-subtitle">Individual (C++/ESP32/TCP)</span>
+            <div class="card-body">
+                <div class="card-text">
+                    <ul>
+                        <li>Built a reusable TCP/IP VGA graphics adapter on ESP32 for headless system debugging.</li>
+                        <li>Designed a lightweight newline-terminated protocol allowing any networked device to render text/graphics.</li>
+                        <li>Optimized memory usage to drive VGA signals while maintaining a stable TCP stack.</li>
+                    </ul>
+                </div>
+                <img class="card-image" src="espdisplayer2.jpeg" alt="ESP VGA Displayer Prototype">
+            </div>
+        </div>
+    </section>
+
+    <section id="skills">
+        <h2><span class="prompt">user@host:~$</span><span class="command">cat ~/tech_stack.sh</span></h2>
+        <div class="skills-grid">
+            <div class="skill-category">
+                <h3>Languages</h3>
+                <p>C, C++, x86 Assembly, Python, Bash</p>
+            </div>
+            <div class="skill-category">
+                <h3>System</h3>
+                <p>Linux Kernel, Driver Dev, Cross-Compilation</p>
+            </div>
+            <div class="skill-category">
+                <h3>Embedded & Hardware</h3>
+                <p>OpenWrt, ESP32, Arduino, PlatformIO, Circuit Analysis, Sensors</p>
+            </div>
+            <div class="skill-category">
+                <h3>Protocols & Tools</h3>
+                <p>TCP/IP, UART, I2C, SPI<br>Git, Make, GDB, QEMU, Docker</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="education">
+        <h2><span class="prompt">user@host:~$</span><span class="command">cat ~/education.dat</span></h2>
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">1337-UM6P (42 Network)</span>
+                <span class="card-date">2021 - Present</span>
+            </div>
+            <span class="card-subtitle">Digital Technologies Architect | Ben Guerir, Morocco</span>
+        </div>
+    </section>
+
+    <footer>
+        <p>user@host:~$ exit</p>
+        <p style="margin-top: 10px;">&copy; 2026 Taha Ed-Dafili</p>
+    </footer>
+</div>
+
+</body>
+</html>
