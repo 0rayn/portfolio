@@ -23,7 +23,7 @@
         body {
             font-family: 'Courier New', Courier, monospace;
             background-color: var(--bg-color);
-            /* Custom Circuit Trace Pattern */
+            /* SVG Circuit Trace Pattern */
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Cpath d='M20 20 L50 20 L70 40 L70 80 M0 100 L40 100 L60 120 L120 120 M150 0 L150 50 L180 80 L200 80 M100 200 L100 160 L130 130 L180 130' fill='none' stroke='%232ea043' stroke-opacity='0.07' stroke-width='1'/%3E%3Ccircle cx='20' cy='20' r='2' fill='%232ea043' fill-opacity='0.1'/%3E%3Ccircle cx='70' cy='80' r='2' fill='%232ea043' fill-opacity='0.1'/%3E%3Ccircle cx='120' cy='120' r='2' fill='%232ea043' fill-opacity='0.1'/%3E%3Ccircle cx='150' cy='0' r='2' fill='%232ea043' fill-opacity='0.1'/%3E%3C/svg%3E");
             background-attachment: fixed;
             color: var(--text-main);
@@ -51,7 +51,7 @@
             margin: 0 auto;
             padding: 40px 20px;
             display: none; 
-            background: rgba(13, 17, 23, 0.7); /* Transparency to see circuits */
+            background: rgba(13, 17, 23, 0.7);
             backdrop-filter: blur(3px);
         }
 
@@ -61,10 +61,10 @@
 
         .contact-links a { color: var(--text-main); text-decoration: none; margin-right: 15px; font-size: 0.9rem; }
         .contact-links a:hover { color: var(--accent); }
-        .resume-btn { color: var(--warning) !important; border: 1px dashed var(--warning); padding: 2px 6px; }
+        .resume-btn { color: var(--warning) !important; border: 1px dashed var(--warning); padding: 2px 6px; border-radius: 4px; }
 
         section { margin-bottom: 60px; }
-        h2 { color: #fff; margin-bottom: 25px; font-size: 1.5rem; }
+        h2 { color: #fff; margin-bottom: 25px; font-size: 1.5rem; display: flex; align-items: center; }
         .prompt { color: var(--accent); margin-right: 10px; }
 
         /* --- Card UI --- */
@@ -77,14 +77,14 @@
             transition: 0.2s;
         }
         .card:hover { border-color: var(--text-muted); transform: translateX(5px); }
-        .card-header { display: flex; justify-content: space-between; margin-bottom: 10px; }
-        .card-title { font-weight: bold; color: #fff; }
+        .card-header { display: flex; justify-content: space-between; margin-bottom: 10px; flex-wrap: wrap; }
+        .card-title { font-weight: bold; color: #fff; font-size: 1.2rem; }
         .card-subtitle { color: var(--accent); font-size: 0.9rem; margin-bottom: 15px; display: block; }
         .card-body { display: flex; gap: 20px; }
-        .card-image { width: 280px; border-radius: 4px; border: 1px solid var(--border); cursor: zoom-in; }
+        .card-image { width: 280px; border-radius: 4px; border: 1px solid var(--border); cursor: zoom-in; object-fit: cover; }
 
-        ul li::before { content: ">> "; color: var(--text-muted); font-size: 0.8rem; }
-        ul li { list-style: none; margin-bottom: 5px; }
+        ul li { list-style: none; margin-bottom: 8px; position: relative; padding-left: 20px; font-size: 0.95rem; }
+        ul li::before { content: ">>"; position: absolute; left: 0; color: var(--text-muted); font-size: 0.8rem; top: 4px; }
 
         .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
         .skill-category { background: var(--card-bg); padding: 15px; border: 1px solid var(--border); border-radius: 6px; }
@@ -98,7 +98,7 @@
 
         footer { text-align: center; border-top: 1px dashed var(--border); padding-top: 30px; color: var(--text-muted); font-size: 0.8rem; }
 
-        @media (max-width: 768px) { .card-body { flex-direction: column-reverse; } .card-image { width: 100%; } }
+        @media (max-width: 768px) { .card-body { flex-direction: column-reverse; } .card-image { width: 100%; max-height: 250px; } }
     </style>
 </head>
 <body>
@@ -137,55 +137,95 @@
         
         <div class="card">
             <div class="card-header">
-                <span class="card-title">Linux Foundation LFX Mentee</span>
-                <span class="card-date">2026</span>
+                <span class="card-title">Linux Kernel Mentee | The Linux Foundation</span>
+                <span class="card-date">Mar 2026 – Present</span>
             </div>
-            <span class="card-subtitle">Linux Kernel | IIO Subsystem</span>
+            <span class="card-subtitle">Industrial I/O (IIO) Subsystem</span>
             <div class="card-body">
                 <div class="card-text">
                     <ul>
-                        <li>Contributing to the Linux kernel under Shuah Khan.</li>
-                        <li>Industrial I/O (IIO) driver engineering and optimization.</li>
+                        <li>Contributing to the Linux kernel by upstreaming C code for the IIO subsystem, targeting high-precision drivers like the ADXL345 and AD5504.</li>
+                        <li>Engineering hardware support with a focus on strict userspace ABI compliance to ensure mainline stability across kernel versions.</li>
+                        <li>Collaborating directly with subsystem maintainers via kernel mailing lists to refine driver architectures and hardware abstraction.</li>
                     </ul>
                 </div>
-                <img class="card-image" src="lfx.png" alt="LFX">
+                <img class="card-image" src="lfx.jpeg" alt="LFX Mentorship">
             </div>
         </div>
 
         <div class="card">
             <div class="card-header">
-                <span class="card-title">C Developer Intern</span>
-                <span class="card-date">2024 - 2025</span>
+                <span class="card-title">C Developer Intern | M2M Group</span>
+                <span class="card-date">Jul 2024 – Jan 2025</span>
             </div>
-            <span class="card-subtitle">M2M Group | POS Systems</span>
+            <span class="card-subtitle">Financial Transaction Systems & POS Optimization</span>
             <div class="card-body">
                 <div class="card-text">
                     <ul>
-                        <li>Optimized backend POS authorization servers in C.</li>
-                        <li>Performed low-level transaction log analysis.</li>
+                        <li>Optimized mission-critical backend authorization servers in C, leveraging expertise in ISO 8583 and TLV data structures.</li>
+                        <li>Utilized advanced SQL scripting and low-level log analysis to resolve complex system bottlenecks and race conditions.</li>
+                        <li>Ensured quality and certification of embedded applications for POS terminals, bridging hardware and secure payment gateways.</li>
                     </ul>
                 </div>
-                <img class="card-image" src="tpe.png" alt="M2M">
+                <img class="card-image" src="tpe.png" alt="M2M Internship">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Mentor – IoT & Electronics | YTCA (UM6P)</span>
+                <span class="card-date">Feb 2025 – Jul 2025</span>
+            </div>
+            <span class="card-subtitle">Youth Tech Challenge Africa | Multi-national Hackathon</span>
+            <div class="card-body">
+                <div class="card-text">
+                    <ul>
+                        <li>Taught foundational IoT concepts to multinational teams from Morocco and Cameroon, focusing on sensor fusion and rapid prototyping.</li>
+                        <li>Guided students through the development of smart-city prototypes using sustainable design principles and real-time monitoring.</li>
+                        <li>Accompanied participants from preselection to final hackathon, providing high-level system architecture and creative technical support.</li>
+                    </ul>
+                </div>
+                <img class="card-image" src="ytca.jpg" alt="YTCA Mentorship">
             </div>
         </div>
     </section>
 
     <section id="volunteering">
         <h2><span class="prompt">user@host:~$</span><span class="command">cat ~/volunteering.log</span></h2>
+        
         <div class="card">
             <div class="card-header">
-                <span class="card-title">Technical Lead</span>
-                <span class="card-date">Present</span>
+                <span class="card-title">Technical Lead | Archi&Tech Club</span>
+                <span class="card-date">Feb 2025 – Present</span>
             </div>
-            <span class="card-subtitle">Architecture Technology Club (Archi&Tech) @ UM6P</span>
+            <span class="card-subtitle">Architecture Technology Club @ UM6P</span>
             <div class="card-body">
                 <div class="card-text">
                     <ul>
-                        <li>Integrating hardware, IoT, and robotics into architectural design.</li>
-                        <li>Technical lead for the LDC Competition.</li>
+                        <li>Integrating hardware, IoT, and robotics into architectural design to build sensor-responsive environments.</li>
+                        <li>Directing technical challenges and hardware logistics for the LDC Competition as the primary technical advisor.</li>
+                        <li>Facilitating workshops on rapid prototyping, bridging the gap between digital modeling and functional electronics.</li>
                     </ul>
                 </div>
                 <img class="card-image" src="archi.jpg" alt="Archi Club">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">Vice President | Leet Makers Club</span>
+                <span class="card-date">Aug 2025 – Present</span>
+            </div>
+            <span class="card-subtitle">1337 | Hardware Hacking & Robotics</span>
+            <div class="card-body">
+                <div class="card-text">
+                    <ul>
+                        <li>Managing club-wide robotics initiatives and conducting technical workshops on embedded Linux and PCB reverse engineering.</li>
+                        <li>Overseeing strategic planning and event organization to foster a culture of first-principles thinking in hardware at 1337.</li>
+                        <li>Mentoring new members on low-level firmware development and hardware-software interfacing for IoT projects.</li>
+                    </ul>
+                </div>
+                <img class="card-image" src="leet.jpg" alt="Leet Makers">
             </div>
         </div>
     </section>
@@ -195,29 +235,49 @@
         
         <div class="card">
             <div class="card-header"><span class="card-title">The 3020 Project</span><span>Active</span></div>
-            <span class="card-subtitle">Founder & Maintainer (C/OpenWrt)</span>
+            <span class="card-subtitle">Founder & Maintainer (C / OpenWrt)</span>
             <div class="card-body">
                 <div class="card-text">
                     <ul>
-                        <li>Transforming routers into SBCs using custom OpenWrt builds.</li>
-                        <li>C userspace keyboard bridge for headless control.</li>
+                        <li>Repurposing legacy TL-MR3020 routers into networked SBCs by stripping OpenWrt OS to fit within 4MB flash constraints.</li>
+                        <li>Engineered a custom userspace keyboard bridge in C to interface directly with kernel device nodes for headless control.</li>
+                        <li>Designed a lightweight TCP-based protocol (Port 1337) for real-time hardware orchestration over a distributed network.</li>
                     </ul>
                 </div>
-                <img class="card-image" src="3020.webp" alt="3020">
+                <img class="card-image" src="3020.webp" alt="3020 Project">
             </div>
         </div>
 
         <div class="card">
             <div class="card-header"><span class="card-title">ESP-VGA-Displayer</span><span>Individual</span></div>
-            <span class="card-subtitle">C++ / ESP32</span>
+            <span class="card-subtitle">C++ / ESP32 / Low-level Signal Gen</span>
             <div class="card-body">
                 <div class="card-text">
                     <ul>
-                        <li>TCP/IP VGA adapter for real-time headless system output.</li>
-                        <li>Low-level bit-banging for signal generation.</li>
+                        <li>Built a TCP/IP VGA adapter on ESP32, bit-banging signals while maintaining a stable networking stack for headless systems.</li>
+                        <li>Developed a newline-terminated rendering protocol for real-time console text output over a networked interface.</li>
+                        <li>Implemented graphics primitives over a custom networking layer, optimizing the ESP32 memory footprint for concurrent tasks.</li>
                     </ul>
                 </div>
                 <img class="card-image" src="espdisplayer2.jpg" alt="ESP VGA">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">B-Gyro Kernel</span>
+                <span class="card-date">Stopped (x86 Architecture)</span>
+            </div>
+            <span class="card-subtitle">C / x86 Assembly / OS Development</span>
+            <div class="card-body">
+                <div class="card-text">
+                    <ul>
+                        <li>Co-engineered a Multiboot-compliant 32-bit x86 OS from scratch, implementing GDT/IDT and basic interrupt handling.</li>
+                        <li>Built fundamental drivers for PIT, RTC, and keyboard alongside a custom VGA text-mode subsystem for user interaction.</li>
+                        <li>Utilized QEMU and GDB for low-level debugging of memory management and task scheduling kernel modules.</li>
+                    </ul>
+                </div>
+                <img class="card-image" src="bgyro.jpg" alt="B-Gyro Kernel">
             </div>
         </div>
     </section>
@@ -225,9 +285,9 @@
     <section id="skills">
         <h2><span class="prompt">user@host:~$</span><span class="command">cat ~/tech_stack.sh</span></h2>
         <div class="skills-grid">
-            <div class="skill-category"><h3>Languages</h3><p>C, C++, Assembly, Python</p></div>
-            <div class="skill-category"><h3>Systems</h3><p>Linux Kernel, Drivers, OpenWrt</p></div>
-            <div class="skill-category"><h3>Hardware</h3><p>ESP32, Arduino, PCB Analysis</p></div>
+            <div class="skill-category"><h3>Languages</h3><p>C, C++, x86 Assembly, Python, Bash</p></div>
+            <div class="skill-category"><h3>Systems</h3><p>Linux Kernel, IIO Subsystem, OpenWrt, ISO 8583</p></div>
+            <div class="skill-category"><h3>Hardware</h3><p>ESP32, Arduino, PCB Analysis, Sensor Fusion</p></div>
         </div>
     </section>
 
@@ -249,7 +309,7 @@
         "System ready. Executing /usr/bin/portfolio..."
     ];
 
-    const aboutText = "I am a fifth-year engineering student at 1337-UM6P specializing in Kernel and Systems. My philosophy is rooted in first-principles: I build systems from the ground up to understand them. My work focuses on Linux kernel development, driver engineering, and hardware hacking.";
+    const aboutText = "I am a fifth-year engineering student at 1337-UM6P (42 Network) specializing in the Kernel and Systems branch. My technical philosophy is rooted in first-principles thinking: I build systems from the ground up to truly understand how they work. While my core focus lies in Linux kernel development and driver engineering, I am also deeply involved in hardware hacking and peer-to-peer mentoring.";
 
     let logIndex = 0;
     let charIndex = 0;
@@ -273,7 +333,7 @@
         if (charIndex < aboutText.length) {
             target.innerHTML += aboutText.charAt(charIndex);
             charIndex++;
-            setTimeout(startTyping, 15);
+            setTimeout(startTyping, 12);
         }
     }
 
