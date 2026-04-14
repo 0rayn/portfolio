@@ -103,7 +103,7 @@
         }
 
         .resume-btn:hover {
-            background-color: #3d2e0f; /* Slight golden tint for dark mode */
+            background-color: #3d2e0f; 
             text-decoration: none !important;
         }
 
@@ -157,7 +157,6 @@
             color: #ffffff;
         }
 
-        /* Specific styling for project title links */
         .card-title a {
             color: #ffffff;
             border-bottom: 1px dashed var(--accent);
@@ -168,7 +167,6 @@
         .card-title a:hover {
             color: var(--accent);
             border-bottom-style: solid;
-            text-decoration: none;
         }
 
         .card-date {
@@ -221,12 +219,17 @@
             border-radius: 4px;
             border: 1px solid var(--border);
             opacity: 0.85;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.3s ease, transform 0.2s;
             object-fit: cover;
+            cursor: zoom-in;
         }
 
         .card-image:hover {
             opacity: 1;
+        }
+
+        .card-image:active {
+            transform: scale(0.98);
         }
 
         ul {
@@ -267,6 +270,33 @@
             font-size: 1.1rem;
         }
 
+        /* Lightbox Overlay */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            cursor: zoom-out;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        #lightbox-img {
+            max-width: 90%;
+            max-height: 90%;
+            border: 2px solid var(--accent);
+            border-radius: 4px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            object-fit: contain;
+            user-select: none;
+        }
+
         footer {
             text-align: center;
             border-top: 1px dashed var(--border);
@@ -301,9 +331,9 @@
         <h1>TAHA ED-DAFILI</h1>
         <div class="subtitle">Digital Technologies Architect | System & Kernel Development</div>
         <div class="contact-links">
-            <a href="https://github.com/Orayn" target="https://github.com/0rayn">[ GitHub ]</a>
-            <a href="https://linkedin.com/in/taha-ed-dafili" target="https://www.linkedin.com/in/taha-ed-dafili/">[ LinkedIn ]</a>
-            <a href="https://0rayn.github.io/WhyNot/" target="https://0rayn.github.io/WhyNot/">[ Blog ]</a>
+            <a href="https://github.com/Orayn" target="_blank">[ GitHub ]</a>
+            <a href="https://linkedin.com/in/taha-ed-dafili" target="_blank">[ LinkedIn ]</a>
+            <a href="https://0rayn.github.io/WhyNot/" target="_blank">[ Blog ]</a>
             <a href="TAHA_CV.pdf" download="Taha_Ed-Dafili_Resume.pdf" class="resume-btn">[ Resume.pdf ]</a>
         </div>
     </header>
@@ -340,13 +370,12 @@
                 <span class="card-title">Mentor - IoT & Electronics<span class="badge-freelance">Freelance</span></span>
                 <span class="card-date">02/2025 - 07/2025</span>
             </div>
-            <span class="card-subtitle">Youth Tech Challenge Africa (YTCA) @ UM6P | Multi-national Event (Morocco & Cameroon)</span>
+            <span class="card-subtitle">Youth Tech Challenge Africa (YTCA) @ UM6P | Multi-national Event</span>
             <div class="card-body">
                 <div class="card-text">
                     <ul>
                         <li>Mentored student teams in a collaborative, multi-national event between Morocco and Cameroon, focusing on electronics, IoT, sensors, and prototyping.</li>
                         <li>Guided projects focused on sustainable urban design from concept to final presentation.</li>
-                        <li>Facilitated cross-cultural collaboration and complex problem-solving workshops.</li>
                     </ul>
                 </div>
                 <img class="card-image" src="ytca.jpg" alt="YTCA Mentorship Session">
@@ -364,7 +393,6 @@
                     <ul>
                         <li>Optimized backend POS and authorization servers in C for high-performance transaction processing.</li>
                         <li>Analyzed logs to resolve complex system issues and contributed to QA of embedded POS applications.</li>
-                        <li>Collaborated with technical teams on system design and optimization.</li>
                     </ul>
                 </div>
                 <img class="card-image" src="tpe.png" alt="M2M Internship">
@@ -380,7 +408,7 @@
                 <span class="card-title">Technical Lead</span>
                 <span class="card-date">02/2025 - Present</span>
             </div>
-            <span class="card-subtitle">Architecture Technology Club (Archi&Tech) @ UM6P | Ben Guerir</span>
+            <span class="card-subtitle">Architecture Technology Club (Archi&Tech) @ UM6P</span>
             <div class="card-body">
                 <div class="card-text">
                     <ul>
@@ -402,7 +430,7 @@
                 <div class="card-text">
                     <ul>
                         <li>Managed robotics and hardware hacking initiatives; conducted technical workshops on embedded Linux and microcontrollers.</li>
-                        <li>Oversaw strategic planning, event organization, and technical training programs for new members.</li>
+                        <li>Oversaw strategic planning, event organization, and technical training programs.</li>
                     </ul>
                 </div>
                 <img class="card-image" src="leet.jpg" alt="Leet Makers Club Workshop">
@@ -424,8 +452,7 @@
                     <ul>
                         <li>Architected a distributed computing system using a TL-MR3020 router as a central orchestrator.</li>
                         <li>Engineered a custom userspace keyboard bridge in C to interface with kernel device nodes.</li>
-                        <li>Stripped the OpenWrt OS to fit within 4MB flash constraints by removing non-essential modules.</li>
-                        <li>Designed custom text-based protocols over TCP (Port 1337) and UART for real-time hardware control.</li>
+                        <li>Stripped OpenWrt OS to fit within 4MB flash constraints.</li>
                     </ul>
                 </div>
                 <img class="card-image" src="3020.webp" alt="The 3020 Project Hardware">
@@ -442,30 +469,10 @@
                 <div class="card-text">
                     <ul>
                         <li>Co-engineered a Multiboot-compliant 32-bit x86 operating system kernel from scratch.</li>
-                        <li>Implemented core components: bootstrapping, GDT/IDT interrupts, drivers (PIT, RTC, Keyboard), and PCI.</li>
-                        <li>Leveraged QEMU emulation for rapid debugging and reliability testing before bare-metal deployment.</li>
-                        <li>Built VGA text/graphics subsystems and an interactive shell for low-level system inspection.</li>
+                        <li>Implemented core components: GDT/IDT, drivers (PIT, RTC, Keyboard), and PCI.</li>
                     </ul>
                 </div>
                 <img class="card-image" src="bgyro.jpg" alt="B-Gyro Kernel Booting">
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-header">
-                 <span class="card-title"><a href="https://github.com/WNH-Organization/esp-VGA-Displayer" target="_blank">ESP-VGA-Displayer</a></span>
-                <span class="card-date">Networked Debugging Display</span>
-            </div>
-            <span class="card-subtitle">Individual (C++/ESP32/TCP)</span>
-            <div class="card-body">
-                <div class="card-text">
-                    <ul>
-                        <li>Built a reusable TCP/IP VGA graphics adapter on ESP32 for headless system debugging.</li>
-                        <li>Designed a lightweight newline-terminated protocol allowing any networked device to render text/graphics.</li>
-                        <li>Optimized memory usage to drive VGA signals while maintaining a stable TCP stack.</li>
-                    </ul>
-                </div>
-                <img class="card-image" src="espdisplayer2.jpg" alt="ESP VGA Displayer Prototype">
             </div>
         </div>
     </section>
@@ -482,24 +489,13 @@
                 <p>Linux Kernel, Driver Dev, Cross-Compilation</p>
             </div>
             <div class="skill-category">
-                <h3>Embedded & Hardware</h3>
-                <p>OpenWrt, ESP32, Arduino, PlatformIO, Circuit Analysis, Sensors</p>
+                <h3>Hardware</h3>
+                <p>OpenWrt, ESP32, Arduino, PlatformIO, Circuit Analysis</p>
             </div>
             <div class="skill-category">
-                <h3>Protocols & Tools</h3>
-                <p>TCP/IP, UART, I2C, SPI<br>Git, Make, GDB, QEMU, Docker</p>
+                <h3>Tools</h3>
+                <p>Git, Make, GDB, QEMU, Docker, UART, I2C</p>
             </div>
-        </div>
-    </section>
-
-    <section id="education">
-        <h2><span class="prompt">user@host:~$</span><span class="command">cat ~/education.dat</span></h2>
-        <div class="card">
-            <div class="card-header">
-                <span class="card-title">1337-UM6P (42 Network)</span>
-                <span class="card-date">2021 - Present</span>
-            </div>
-            <span class="card-subtitle">Digital Technologies Architect | Ben Guerir, Morocco</span>
         </div>
     </section>
 
@@ -508,6 +504,35 @@
         <p style="margin-top: 10px;">&copy; 2026 Taha Ed-Dafili</p>
     </footer>
 </div>
+
+<div id="lightbox">
+    <img id="lightbox-img" src="">
+</div>
+
+<script>
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+
+    // Open Lightbox
+    document.querySelectorAll('.card-image').forEach(image => {
+        image.addEventListener('click', () => {
+            lightbox.style.display = 'flex';
+            // Small timeout to allow the 'display: flex' to register before fading in
+            setTimeout(() => {
+                lightbox.style.opacity = '1';
+            }, 10);
+            lightboxImg.src = image.src;
+        });
+    });
+
+    // Close Lightbox
+    lightbox.addEventListener('click', () => {
+        lightbox.style.opacity = '0';
+        setTimeout(() => {
+            lightbox.style.display = 'none';
+        }, 300);
+    });
+</script>
 
 </body>
 </html>
