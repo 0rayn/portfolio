@@ -5,20 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Taha Ed-Dafili | Portfolio</title>
-    <meta name="title" content="Taha Ed-Dafili | Portfolio">
-    <meta name="description" content="Portfolio of Taha Ed-Dafili, a software engineering student specializing in System & Kernel Development, Linux, and Embedded Hardware.">
-
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://orayn.github.io/">
-    <meta property="og:title" content="Taha Ed-Dafili | Digital Technologies Architect">
-    <meta property="og:description" content="Portfolio of Taha Ed-Dafili, specializing in System & Kernel Development, Linux, and Embedded Hardware.">
-    <meta property="og:image" content="https://via.placeholder.com/1200x630/0d1117/2ea043?text=Taha+Ed-Dafili+Portfolio">
-
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://orayn.github.io/">
-    <meta property="twitter:title" content="Taha Ed-Dafili | Digital Technologies Architect">
-    <meta property="twitter:description" content="Portfolio of Taha Ed-Dafili, specializing in System & Kernel Development, Linux, and Embedded Hardware.">
-    <meta property="twitter:image" content="https://via.placeholder.com/1200x630/0d1117/2ea043?text=Taha+Ed-Dafili+Portfolio">
+    <meta name="description" content="Portfolio of Taha Ed-Dafili, specializing in System & Kernel Development, Linux, and Embedded Hardware.">
 
     <style>
         :root {
@@ -32,34 +19,42 @@
             --warning: #d29922;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
 
         body {
             font-family: 'Courier New', Courier, monospace;
             background-color: var(--bg-color);
             color: var(--text-main);
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        a {
+        /* --- Boot Screen --- */
+        #boot-screen {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg-color);
             color: var(--accent);
-            text-decoration: none;
-            transition: color 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            font-size: 14px;
         }
 
-        a:hover {
-            color: var(--accent-hover);
-            text-decoration: underline;
+        .boot-text {
+            margin-top: 20px;
+            text-align: left;
+            min-width: 320px;
         }
 
+        /* --- Main Content Layout --- */
         .container {
             max-width: 950px;
             margin: 0 auto;
             padding: 40px 20px;
+            display: none; 
         }
 
         header {
@@ -68,30 +63,12 @@
             padding-bottom: 20px;
         }
 
-        h1 {
-            font-size: 2.5rem;
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
+        h1 { font-size: 2.5rem; color: #ffffff; margin-bottom: 10px; }
+        .subtitle { font-size: 1.2rem; color: var(--accent); margin-bottom: 15px; }
 
-        .subtitle {
-            font-size: 1.2rem;
-            color: var(--accent);
-            margin-bottom: 15px;
-        }
-
-        .contact-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-bottom: 10px;
-            align-items: center;
-        }
-        
-        .contact-links a, .contact-links span {
-            color: var(--text-main);
-            font-size: 0.9rem;
-        }
+        .contact-links { display: flex; flex-wrap: wrap; gap: 15px; margin-bottom: 10px; }
+        .contact-links a { color: var(--text-main); font-size: 0.9rem; text-decoration: none; }
+        .contact-links a:hover { color: var(--accent); }
 
         .resume-btn {
             color: var(--warning) !important;
@@ -99,36 +76,13 @@
             border: 1px dashed var(--warning);
             padding: 2px 6px;
             border-radius: 4px;
-            transition: background-color 0.2s, color 0.2s !important;
         }
 
-        .resume-btn:hover {
-            background-color: #3d2e0f; 
-            text-decoration: none !important;
-        }
+        section { margin-bottom: 50px; }
+        h2 { font-size: 1.6rem; color: #ffffff; margin-bottom: 25px; display: flex; align-items: center; }
+        .prompt { color: var(--accent); margin-right: 10px; }
 
-        section {
-            margin-bottom: 50px;
-        }
-
-        h2 {
-            font-size: 1.6rem;
-            color: #ffffff;
-            margin-bottom: 25px;
-            display: flex;
-            align-items: center;
-        }
-
-        .prompt {
-            color: var(--accent);
-            margin-right: 10px;
-            font-size: 1.4rem;
-        }
-
-        .command {
-            color: var(--text-main);
-        }
-
+        /* --- Cards --- */
         .card {
             background-color: var(--card-bg);
             border: 1px solid var(--border);
@@ -137,196 +91,62 @@
             margin-bottom: 20px;
             transition: transform 0.2s, border-color 0.2s;
         }
-
-        .card:hover {
-            border-color: var(--text-muted);
-            transform: translateY(-2px);
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            margin-bottom: 10px;
-            flex-wrap: wrap;
-        }
-
-        .card-title {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: #ffffff;
-        }
-
-        .card-title a {
-            color: #ffffff;
-            border-bottom: 1px dashed var(--accent);
-            text-decoration: none;
-            transition: color 0.2s, border-color 0.2s;
-        }
-
-        .card-title a:hover {
-            color: var(--accent);
-            border-bottom-style: solid;
-        }
-
-        .card-date {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
-
-        .card-subtitle {
-            color: var(--accent);
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-        
-        .badge-inactive {
-            font-size: 0.8rem;
-            background-color: #21262d;
-            color: var(--warning);
-            padding: 2px 6px;
-            border: 1px solid var(--warning);
-            border-radius: 4px;
-            margin-left: 10px;
-            vertical-align: middle;
-        }
+        .card:hover { border-color: var(--text-muted); transform: translateY(-2px); }
+        .card-header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 10px; flex-wrap: wrap; }
+        .card-title { font-weight: bold; font-size: 1.2rem; color: #ffffff; }
+        .card-subtitle { color: var(--accent); font-size: 0.95rem; margin-bottom: 15px; display: block; }
+        .card-body { display: flex; gap: 20px; align-items: flex-start; }
+        .card-image { width: 300px; flex-shrink: 0; border-radius: 4px; border: 1px solid var(--border); cursor: zoom-in; }
 
         .badge-freelance {
-            font-size: 0.8rem;
-            background-color: #1f6feb26;
-            color: #58a6ff;
-            padding: 2px 6px;
-            border: 1px solid #1f6feb;
-            border-radius: 4px;
-            margin-left: 10px;
-            vertical-align: middle;
+            font-size: 0.8rem; background-color: #1f6feb26; color: #58a6ff;
+            padding: 2px 6px; border: 1px solid #1f6feb; border-radius: 4px; margin-left: 10px;
+        }
+        .badge-inactive {
+            font-size: 0.8rem; background-color: #21262d; color: var(--warning);
+            padding: 2px 6px; border: 1px solid var(--warning); border-radius: 4px; margin-left: 10px;
         }
 
-        .card-body {
-            display: flex;
-            gap: 20px;
-            align-items: flex-start;
-        }
+        ul { list-style: none; }
+        ul li::before { content: ">> "; color: var(--text-muted); font-size: 0.8rem; }
 
-        .card-text {
-            flex: 1;
-        }
+        /* --- Skills --- */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .skill-category { background-color: var(--card-bg); padding: 15px; border: 1px solid var(--border); border-radius: 6px; }
+        .skill-category h3 { color: var(--accent); margin-bottom: 10px; font-size: 1.1rem; }
 
-        .card-image {
-            width: 300px;
-            flex-shrink: 0;
-            border-radius: 4px;
-            border: 1px solid var(--border);
-            opacity: 0.85;
-            transition: opacity 0.3s ease, transform 0.2s;
-            object-fit: cover;
-            cursor: zoom-in;
-        }
-
-        .card-image:hover {
-            opacity: 1;
-        }
-
-        .card-image:active {
-            transform: scale(0.98);
-        }
-
-        ul {
-            list-style-type: none;
-        }
-
-        ul li {
-            position: relative;
-            padding-left: 20px;
-            margin-bottom: 8px;
-        }
-
-        ul li::before {
-            content: ">>";
-            position: absolute;
-            left: 0;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-            top: 4px;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-        }
-
-        .skill-category {
-            background-color: var(--card-bg);
-            padding: 15px;
-            border: 1px solid var(--border);
-            border-radius: 6px;
-        }
-
-        .skill-category h3 {
-            color: var(--accent);
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-
-        /* Lightbox Overlay */
+        /* --- Lightbox --- */
         #lightbox {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.9);
-            cursor: zoom-out;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
+            display: none; position: fixed; z-index: 10000; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9); justify-content: center; align-items: center; cursor: zoom-out;
         }
+        #lightbox img { max-width: 90%; max-height: 90%; border: 2px solid var(--accent); }
 
-        #lightbox-img {
-            max-width: 90%;
-            max-height: 90%;
-            border: 2px solid var(--accent);
-            border-radius: 4px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
-            object-fit: contain;
-            user-select: none;
-        }
-
-        footer {
-            text-align: center;
-            border-top: 1px dashed var(--border);
-            padding-top: 20px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-        }
+        footer { text-align: center; border-top: 1px dashed var(--border); padding-top: 20px; color: var(--text-muted); font-size: 0.9rem; }
 
         @media (max-width: 768px) {
-            .card-body {
-                flex-direction: column-reverse;
-            }
-            .card-image {
-                width: 100%;
-                max-height: 250px;
-            }
-        }
-        @media (max-width: 600px) {
-            .card-header {
-                flex-direction: column;
-            }
-            .card-date {
-                margin-top: 5px;
-            }
+            .card-body { flex-direction: column-reverse; }
+            .card-image { width: 100%; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div id="boot-screen">
+    <pre>
+  _____                      
+ |  __ \                     
+ | |  | | __ _ _   _ _ __    
+ | |  | |/ _` | | | | '_ \   
+ | |__| | (_| | |_| | | | |  
+ |_____/ \__,_|\__, |_| |_|  
+                __/ |        
+               |___/         
+    </pre>
+    <div class="boot-text" id="boot-log"></div>
+</div>
+
+<div class="container" id="main-content">
     <header>
         <h1>TAHA ED-DAFILI</h1>
         <div class="subtitle">Digital Technologies Architect | System & Kernel Development</div>
@@ -334,15 +154,13 @@
             <a href="https://github.com/Orayn" target="_blank">[ GitHub ]</a>
             <a href="https://linkedin.com/in/taha-ed-dafili" target="_blank">[ LinkedIn ]</a>
             <a href="https://0rayn.github.io/WhyNot/" target="_blank">[ Blog ]</a>
-            <a href="TAHA_CV.pdf" download="Taha_Ed-Dafili_Resume.pdf" class="resume-btn">[ Resume.pdf ]</a>
+            <a href="TAHA_CV.pdf" class="resume-btn">[ Resume.pdf ]</a>
         </div>
     </header>
 
     <section id="about">
         <h2><span class="prompt">user@host:~$</span><span class="command">cat ~/about_me.txt</span></h2>
-        <p>
-            I am a fifth-year engineering student at 1337-UM6P (42 Network) specializing in the Kernel and Systems branch. My technical philosophy is rooted in first-principles thinking: I build systems from the ground up to truly understand how they work. While my core focus lies in Linux kernel development and driver engineering, I have also completed numerous reverse engineering projects and hardware hacking initiatives. Beyond building things, I love teaching and sharing knowledge, acting as a strong advocate for self-directed, project-based learning and peer-to-peer education.
-        </p>
+        <p id="typing-text" style="min-height: 80px;"></p>
     </section>
 
     <section id="experience">
@@ -357,11 +175,11 @@
             <div class="card-body">
                 <div class="card-text">
                     <ul>
-                        <li>Contributing directly to the Linux kernel under the mentorship of kernel maintainers Shuah Khan and Brigham Campbell.</li>
-                        <li>Focusing on the Industrial I/O (IIO) subsystem, working on driver engineering and kernel patching.</li>
+                        <li>Contributing to the Linux kernel under mentorship of Shuah Khan.</li>
+                        <li>Developing drivers for Industrial I/O (IIO) devices.</li>
                     </ul>
                 </div>
-                <img class="card-image" src="lfx.png" alt="Linux Kernel Contribution">
+                <img class="card-image" src="lfx.png" alt="LFX Mentorship">
             </div>
         </div>
 
@@ -370,15 +188,15 @@
                 <span class="card-title">Mentor - IoT & Electronics<span class="badge-freelance">Freelance</span></span>
                 <span class="card-date">02/2025 - 07/2025</span>
             </div>
-            <span class="card-subtitle">Youth Tech Challenge Africa (YTCA) @ UM6P | Multi-national Event</span>
+            <span class="card-subtitle">Youth Tech Challenge Africa (YTCA) @ UM6P</span>
             <div class="card-body">
                 <div class="card-text">
                     <ul>
-                        <li>Mentored student teams in a collaborative, multi-national event between Morocco and Cameroon, focusing on electronics, IoT, sensors, and prototyping.</li>
-                        <li>Guided projects focused on sustainable urban design from concept to final presentation.</li>
+                        <li>Guided multi-national student teams in IoT prototyping.</li>
+                        <li>Focused on sustainable urban design and sensor integration.</li>
                     </ul>
                 </div>
-                <img class="card-image" src="ytca.jpg" alt="YTCA Mentorship Session">
+                <img class="card-image" src="ytca.jpg" alt="YTCA Mentorship">
             </div>
         </div>
 
@@ -391,8 +209,8 @@
             <div class="card-body">
                 <div class="card-text">
                     <ul>
-                        <li>Optimized backend POS and authorization servers in C for high-performance transaction processing.</li>
-                        <li>Analyzed logs to resolve complex system issues and contributed to QA of embedded POS applications.</li>
+                        <li>Optimized backend POS authorization servers in C.</li>
+                        <li>Resolved system issues through high-performance log analysis.</li>
                     </ul>
                 </div>
                 <img class="card-image" src="tpe.png" alt="M2M Internship">
@@ -402,7 +220,7 @@
 
     <section id="volunteering">
         <h2><span class="prompt">user@host:~$</span><span class="command">cat ~/volunteering.log</span></h2>
-
+        
         <div class="card">
             <div class="card-header">
                 <span class="card-title">Technical Lead</span>
@@ -412,11 +230,11 @@
             <div class="card-body">
                 <div class="card-text">
                     <ul>
-                        <li>Directed technical vision integrating electronics, robotics, and IoT into architectural curricula.</li>
-                        <li>Organized the LDC Competition, designing technical challenges and advising student teams.</li>
+                        <li>Directing technical vision integrating electronics, robotics, and IoT into architecture.</li>
+                        <li>Organizing the LDC Competition and advising student hardware teams.</li>
                     </ul>
                 </div>
-                <img class="card-image" src="archi.jpg" alt="Archi and Tech Competition">
+                <img class="card-image" src="archi.jpg" alt="Archi&Tech Club">
             </div>
         </div>
 
@@ -425,54 +243,70 @@
                 <span class="card-title">Vice President</span>
                 <span class="card-date">08/2025 - Present</span>
             </div>
-            <span class="card-subtitle">Leet Makers Club @ 1337 | Ben Guerir</span>
+            <span class="card-subtitle">Leet Makers Club @ 1337</span>
             <div class="card-body">
                 <div class="card-text">
                     <ul>
-                        <li>Managed robotics and hardware hacking initiatives; conducted technical workshops on embedded Linux and microcontrollers.</li>
-                        <li>Oversaw strategic planning, event organization, and technical training programs.</li>
+                        <li>Managing hardware hacking and robotics initiatives.</li>
+                        <li>Conducting workshops on embedded Linux and microcontrollers.</li>
                     </ul>
                 </div>
-                <img class="card-image" src="leet.jpg" alt="Leet Makers Club Workshop">
+                <img class="card-image" src="leet.jpg" alt="Leet Makers Club">
             </div>
         </div>
     </section>
 
     <section id="projects">
         <h2><span class="prompt">user@host:~$</span><span class="command">ls -l ~/projects/</span></h2>
-
+        
         <div class="card">
             <div class="card-header">
-                <span class="card-title"><a href="https://github.com/WNH-Organization/The-3020-Project" target="_blank">The 3020 Project</a></span>
-                <span class="card-date">System & Embedded Projects</span>
+                <span class="card-title">The 3020 Project</span>
+                <span class="card-date">Active</span>
             </div>
-            <span class="card-subtitle">Founder & Maintainer (C/OpenWrt/PlatformIO)</span>
+            <span class="card-subtitle">Founder & Maintainer (C/OpenWrt)</span>
             <div class="card-body">
                 <div class="card-text">
                     <ul>
-                        <li>Architected a distributed computing system using a TL-MR3020 router as a central orchestrator.</li>
-                        <li>Engineered a custom userspace keyboard bridge in C to interface with kernel device nodes.</li>
-                        <li>Stripped OpenWrt OS to fit within 4MB flash constraints.</li>
+                        <li>Repurposing TL-MR3020 routers into networked single-board computers.</li>
+                        <li>Custom C-based userspace keyboard bridge for device nodes.</li>
                     </ul>
                 </div>
-                <img class="card-image" src="3020.webp" alt="The 3020 Project Hardware">
+                <img class="card-image" src="3020.webp" alt="The 3020 Project">
             </div>
         </div>
 
         <div class="card">
             <div class="card-header">
-                <span class="card-title"><a href="https://github.com/B-Gyro/B-Gyro" target="_blank">B-Gyro-Kernel From Scratch (x86)</a><span class="badge-inactive">Inactive</span></span>
-                <span class="card-date">Group of two</span>
+                <span class="card-title">ESP-VGA-Displayer</span>
+                <span class="card-date">Individual</span>
+            </div>
+            <span class="card-subtitle">C++ / ESP32 / TCP</span>
+            <div class="card-body">
+                <div class="card-text">
+                    <ul>
+                        <li>Built a TCP/IP VGA graphics adapter on ESP32 for headless system debugging.</li>
+                        <li>Designed a newline-terminated protocol for real-time text/graphics rendering.</li>
+                    </ul>
+                </div>
+                <img class="card-image" src="espdisplayer2.jpg" alt="ESP VGA Displayer">
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <span class="card-title">B-Gyro Kernel<span class="badge-inactive">Stopped</span></span>
+                <span class="card-date">x86</span>
             </div>
             <span class="card-subtitle">C / x86 Assembly</span>
             <div class="card-body">
                 <div class="card-text">
                     <ul>
-                        <li>Co-engineered a Multiboot-compliant 32-bit x86 operating system kernel from scratch.</li>
-                        <li>Implemented core components: GDT/IDT, drivers (PIT, RTC, Keyboard), and PCI.</li>
+                        <li>Developed a 32-bit Multiboot operating system kernel from scratch.</li>
+                        <li>Implemented GDT, IDT, PIT, and basic PCI scanning.</li>
                     </ul>
                 </div>
-                <img class="card-image" src="bgyro.jpg" alt="B-Gyro Kernel Booting">
+                <img class="card-image" src="bgyro.jpg" alt="B-Gyro Kernel">
             </div>
         </div>
     </section>
@@ -485,16 +319,12 @@
                 <p>C, C++, x86 Assembly, Python, Bash</p>
             </div>
             <div class="skill-category">
-                <h3>System</h3>
-                <p>Linux Kernel, Driver Dev, Cross-Compilation</p>
+                <h3>Systems</h3>
+                <p>Linux Kernel, Drivers, OpenWrt, Cross-Compilation</p>
             </div>
             <div class="skill-category">
                 <h3>Hardware</h3>
-                <p>OpenWrt, ESP32, Arduino, PlatformIO, Circuit Analysis</p>
-            </div>
-            <div class="skill-category">
-                <h3>Tools</h3>
-                <p>Git, Make, GDB, QEMU, Docker, UART, I2C</p>
+                <p>ESP32, Arduino, PlatformIO, Circuit Analysis</p>
             </div>
         </div>
     </section>
@@ -505,33 +335,57 @@
     </footer>
 </div>
 
-<div id="lightbox">
-    <img id="lightbox-img" src="">
-</div>
+<div id="lightbox"><img id="lightbox-img" src=""></div>
 
 <script>
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightbox-img');
+    const bootLog = document.getElementById('boot-log');
+    const logs = [
+        "[  OK  ] Initializing Kernel...",
+        "[  OK  ] Loading modules: C, x86_ASM, Linux...",
+        "[  OK  ] Mounting /home/taha...",
+        "[  OK  ] Establishing Secure Connection...",
+        "Starting System..."
+    ];
 
-    // Open Lightbox
-    document.querySelectorAll('.card-image').forEach(image => {
-        image.addEventListener('click', () => {
-            lightbox.style.display = 'flex';
-            // Small timeout to allow the 'display: flex' to register before fading in
+    const aboutText = "I am a fifth-year engineering student at 1337-UM6P (42 Network) specializing in the Kernel and Systems branch. My technical philosophy is rooted in first-principles thinking: I build systems from the ground up to truly understand how they work. While my core focus lies in Linux kernel development and driver engineering, I am also deeply involved in hardware hacking and peer-to-peer mentoring.";
+
+    let logIndex = 0;
+    let charIndex = 0;
+
+    function runBoot() {
+        if (logIndex < logs.length) {
+            bootLog.innerHTML += logs[logIndex] + "<br>";
+            logIndex++;
+            setTimeout(runBoot, 350);
+        } else {
             setTimeout(() => {
-                lightbox.style.opacity = '1';
-            }, 10);
-            lightboxImg.src = image.src;
+                document.getElementById('boot-screen').style.display = 'none';
+                document.getElementById('main-content').style.display = 'block';
+                startTyping();
+            }, 500);
+        }
+    }
+
+    function startTyping() {
+        const target = document.getElementById('typing-text');
+        if (charIndex < aboutText.length) {
+            target.innerHTML += aboutText.charAt(charIndex);
+            charIndex++;
+            setTimeout(startTyping, 15);
+        }
+    }
+
+    const lb = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lightbox-img');
+    document.querySelectorAll('.card-image').forEach(img => {
+        img.addEventListener('click', () => {
+            lb.style.display = 'flex';
+            lbImg.src = img.src;
         });
     });
+    lb.addEventListener('click', () => lb.style.display = 'none');
 
-    // Close Lightbox
-    lightbox.addEventListener('click', () => {
-        lightbox.style.opacity = '0';
-        setTimeout(() => {
-            lightbox.style.display = 'none';
-        }, 300);
-    });
+    window.onload = runBoot;
 </script>
 
 </body>
