@@ -81,6 +81,26 @@ body::after {
 }
 
 /* ════════════════════════════════════════════════════════
+   CIRCUIT HOVER EFFECT (UPDATED PCB DESIGN)
+════════════════════════════════════════════════════════ */
+#circuit-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cg stroke='%2300ff87' stroke-opacity='0.25' fill='none'%3E%3Cpath stroke-width='0.2' stroke-opacity='0.1' d='M0 40 h160 M0 80 h160 M0 120 h160 M40 0 v160 M80 0 v160 M120 0 v160'/%3E%3Cpath stroke-width='2' d='M20 20 l20 20 h40 l20 -20 M140 140 l-20 -20 h-40 l-20 20 M20 80 h20 l20 20 v20 M140 80 h-20 l-20 -20 v-20' /%3E%3Cpath stroke-width='1' d='M10 50 h20 l10 10 v20 l-10 10 M150 50 h-20 l-10 10 v20 l10 10 M50 150 v-20 l10 -10 h20 M100 10 v20 l10 10 h20' /%3E%3Crect x='60' y='60' width='40' height='40' stroke-width='1.5' fill='%2300ff87' fill-opacity='0.05'/%3E%3Cpath stroke-width='1' d='M65 55 v10 M75 55 v10 M85 55 v10 M95 55 v10 M65 95 v10 M75 95 v10 M85 95 v10 M95 95 v10 M55 65 h10 M55 75 h10 M55 85 h10 M55 95 h10 M95 65 h10 M95 75 h10 M95 85 h10 M95 95 h10'/%3E%3Ccircle cx='20' cy='20' r='3.5' fill='%2300ff87' fill-opacity='0.15' stroke-width='1.5'/%3E%3Ccircle cx='100' cy='20' r='3.5' fill='%2300ff87' fill-opacity='0.15' stroke-width='1.5'/%3E%3Ccircle cx='140' cy='140' r='3.5' fill='%2300ff87' fill-opacity='0.15' stroke-width='1.5'/%3E%3Ccircle cx='60' cy='140' r='3.5' fill='%2300ff87' fill-opacity='0.15' stroke-width='1.5'/%3E%3Ccircle cx='20' cy='80' r='2' fill='%2300ff87' fill-opacity='0.2'/%3E%3Ccircle cx='140' cy='80' r='2' fill='%2300ff87' fill-opacity='0.2'/%3E%3Ccircle cx='40' cy='90' r='2' fill='%2300ff87' fill-opacity='0.2'/%3E%3Ccircle cx='120' cy='70' r='2' fill='%2300ff87' fill-opacity='0.2'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 160px 160px;
+  -webkit-mask-image: radial-gradient(circle 300px at var(--mouse-x, -500px) var(--mouse-y, -500px), black 0%, transparent 100%);
+  mask-image: radial-gradient(circle 300px at var(--mouse-x, -500px) var(--mouse-y, -500px), black 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+body:hover #circuit-bg {
+  opacity: 1;
+}
+
+/* ════════════════════════════════════════════════════════
    BOOT SCREEN
 ════════════════════════════════════════════════════════ */
 #boot {
@@ -107,7 +127,7 @@ body::after {
   line-height: 1.2;
   text-shadow: 0 0 28px rgba(0,255,135,0.5);
   margin-bottom: 30px;
-  white-space: pre; /* Essential for ASCII exact spacing */
+  white-space: pre;
 }
 
 .boot-log { font-size: 13px; line-height: 2.2; }
@@ -132,9 +152,13 @@ body::after {
 @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
 /* ════════════════════════════════════════════════════════
-   SITE (hidden until boot)
+   SITE
 ════════════════════════════════════════════════════════ */
-#site { display: none; }
+#site { 
+  display: none;
+  position: relative;
+  z-index: 10;
+}
 
 /* ════════════════════════════════════════════════════════
    NAV
@@ -459,6 +483,8 @@ footer { padding: 44px 0; text-align: center; }
 </head>
 <body>
 
+<div id="circuit-bg"></div>
+
 <div id="boot">
   <pre class="boot-logo" id="boot-logo"></pre>
   <div class="boot-log" id="boot-log">
@@ -471,7 +497,7 @@ footer { padding: 44px 0; text-align: center; }
   <nav id="nav">
     <span class="nav-brand">0RAYN</span>
     <div class="nav-links">
-      <a href="#about"       data-sec="about">~/about</a>
+      <a href="#about"        data-sec="about">~/about</a>
       <a href="#experience"  data-sec="experience">~/experience</a>
       <a href="#volunteering" data-sec="volunteering">~/volunteer</a>
       <a href="#projects"    data-sec="projects">~/projects</a>
@@ -525,11 +551,11 @@ footer { padding: 44px 0; text-align: center; }
             <span class="card-title">Linux Kernel Mentee &nbsp;·&nbsp; The Linux Foundation</span>
             <span class="card-date active">● Mar 2026 – Present</span>
           </div>
-          <span class="card-sub">Industrial I/O (IIO) Subsystem</span>
+          <span class="card-sub">Remote · IIO Subsystem</span>
           <ul class="pts">
-            <li>Contributing to the Linux kernel by upstreaming C code for the IIO subsystem, targeting high-precision drivers like the ADXL345 and AD5504.</li>
-            <li>Engineering hardware support with a focus on strict userspace ABI compliance to ensure mainline stability across kernel versions.</li>
-            <li>Collaborating directly with subsystem maintainers via kernel mailing lists to refine driver architectures and hardware abstraction.</li>
+            <li>Develop and submit C patches for the IIO subsystem, successfully merging fixes for the ADXL345 driver into the mainline tree.</li>
+            <li>Iterate on patches for the AD5504 driver under active review, responding directly to maintainer feedback on the kernel mailing lists.</li>
+            <li>Selected from 600 applicants for the Spring 2026 Linux Kernel Mentorship, contributing to real-world driver development in the IIO subsystem.</li>
           </ul>
         </div>
       </div>
@@ -538,14 +564,14 @@ footer { padding: 44px 0; text-align: center; }
         <div class="card-img"><img src="ytca.jpg" alt="YTCA Mentorship"></div>
         <div class="card-body">
           <div class="card-meta">
-            <span class="card-title">Mentor – IoT &amp; Electronics &nbsp;·&nbsp; YTCA (UM6P)</span>
+            <span class="card-title">Mentor – IoT &amp; Electronics &nbsp;·&nbsp; YTCA @ UM6P</span>
             <span class="card-date">Feb 2025 – Jul 2025</span>
           </div>
-          <span class="card-sub">Youth Tech Challenge Africa · Multi-national Hackathon</span>
+          <span class="card-sub">Marrakesh-Safi · Youth Tech Challenge Africa</span>
           <ul class="pts">
-            <li>Taught foundational IoT concepts to multinational teams from Morocco and Cameroon, focusing on sensor fusion and rapid prototyping.</li>
-            <li>Guided students through the development of smart-city prototypes using sustainable design principles and real-time monitoring.</li>
-            <li>Accompanied participants from preselection to final hackathon, providing high-level system architecture and creative technical support.</li>
+            <li>Guided 32 students across 3 teams through a 6-month hardware prototyping program from initial concept to a final hackathon presentation.</li>
+            <li>Taught hands-on workshops covering electronics fundamentals, sensor integration, and practical embedded system design.</li>
+            <li>Facilitated cross-cultural problem-solving among participants from Morocco and Cameroon to ensure teams delivered functional prototypes.</li>
           </ul>
         </div>
       </div>
@@ -557,11 +583,11 @@ footer { padding: 44px 0; text-align: center; }
             <span class="card-title">C Developer Intern &nbsp;·&nbsp; M2M Group</span>
             <span class="card-date">Jul 2024 – Jan 2025</span>
           </div>
-          <span class="card-sub">Financial Transaction Systems &amp; POS Optimization</span>
+          <span class="card-sub">Nouaceur · Backend Optimization</span>
           <ul class="pts">
-            <li>Optimized mission-critical backend authorization servers in C, leveraging expertise in ISO 8583 and TLV data structures.</li>
-            <li>Utilized advanced SQL scripting and low-level log analysis to resolve complex system bottlenecks and race conditions.</li>
-            <li>Ensured quality and certification of embedded applications for POS terminals, bridging hardware and secure payment gateways.</li>
+            <li>Diagnosed load timeouts in an 8-thread C authorization server that limited concurrent request handling to ~2-3 simultaneous transactions.</li>
+            <li>Replaced a bottlenecking global lock with per-thread SQL database connections and finer-grained synchronization primitives.</li>
+            <li>Increased stable concurrent request handling to 20+ requests, eliminating client timeouts and restoring parallel processing.</li>
           </ul>
         </div>
       </div>
@@ -572,38 +598,38 @@ footer { padding: 44px 0; text-align: center; }
     <div class="wrap">
       <div class="sec-label reveal">
         <span class="sec-prompt">user@host:~$&nbsp;</span>
-        <span class="sec-cmd">cat volunteering.log</span>
+        <span class="sec-cmd">cat leadership.log</span>
         <div class="sec-rule"></div>
+      </div>
+      
+      <div class="card reveal">
+        <div class="card-img"><img src="archi.jpg" alt="Archi Tech Club"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-title">Technical Lead &nbsp;·&nbsp; Archi&amp;Tech Club @ UM6P</span>
+            <span class="card-date active">● Feb 2025 – Present</span>
+          </div>
+          <span class="card-sub">Ben Guerir · Architecture Technology Club</span>
+          <ul class="pts">
+            <li>Organized the LDC Competition, designing hands-on hardware challenges for 48 participants across multiple national campuses.</li>
+            <li>Led technical workshops teaching architecture students how to integrate electronics, robotics, and IoT into their physical models.</li>
+            <li>Mentored multidisciplinary student teams, providing technical guidance from prototype conception to final hardware implementation.</li>
+          </ul>
+        </div>
       </div>
 
       <div class="card reveal">
         <div class="card-img"><img src="leet.jpg" alt="Leet Makers Club"></div>
         <div class="card-body">
           <div class="card-meta">
-            <span class="card-title">Vice President &nbsp;·&nbsp; Leet Makers Club</span>
+            <span class="card-title">Vice President &nbsp;·&nbsp; Leet Makers Club @ 1337</span>
             <span class="card-date active">● Aug 2025 – Present</span>
           </div>
-          <span class="card-sub">1337 · Hardware Hacking &amp; Robotics</span>
+          <span class="card-sub">Ben Guerir · Hardware &amp; Cybersecurity</span>
           <ul class="pts">
-            <li>Managing club-wide robotics initiatives and conducting technical workshops on embedded Linux and PCB reverse engineering.</li>
-            <li>Overseeing strategic planning and event organization to foster a culture of first-principles thinking in hardware at 1337.</li>
-            <li>Mentoring new members on low-level firmware development and hardware-software interfacing for IoT projects.</li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="card reveal">
-        <div class="card-img"><img src="archi.jpg" alt="Archi Tech Club"></div>
-        <div class="card-body">
-          <div class="card-meta">
-            <span class="card-title">Technical Lead &nbsp;·&nbsp; Archi&amp;Tech Club</span>
-            <span class="card-date active">● Feb 2025 – Present</span>
-          </div>
-          <span class="card-sub">Architecture Technology Club @ UM6P</span>
-          <ul class="pts">
-            <li>Integrating hardware, IoT, and robotics into architectural design to build sensor-responsive environments.</li>
-            <li>Directing technical challenges and hardware logistics for the LDC Competition as the primary technical advisor.</li>
-            <li>Facilitating workshops on rapid prototyping, bridging the gap between digital modeling and functional electronics.</li>
+            <li>Delivered an 8-session technical workshop series on embedded Linux and microcontrollers for new club members.</li>
+            <li>Managed the club's robotics initiatives, setting up hardware training environments and organizing practical hacking sessions.</li>
+            <li>Presented a custom hardware hacking project as a featured speaker at the NullHat Morocco 2025 cybersecurity event.</li>
           </ul>
         </div>
       </div>
@@ -622,14 +648,14 @@ footer { padding: 44px 0; text-align: center; }
         <div class="card-img"><img src="3020.webp" alt="The 3020 Project"></div>
         <div class="card-body">
           <div class="card-meta">
-            <span class="card-title">The 3020 Project</span>
+            <span class="card-title">The 3020 Project - Multi-Node Embedded System</span>
             <span class="card-date active">● Active</span>
           </div>
-          <span class="card-sub">Founder &amp; Maintainer · C / OpenWrt</span>
+          <span class="card-sub">Founder &amp; Maintainer · C / OpenWrt / PlatformIO</span>
           <ul class="pts">
-            <li>Repurposing legacy TL-MR3020 routers into networked SBCs by stripping OpenWrt OS to fit within 4MB flash constraints.</li>
-            <li>Engineered a custom userspace keyboard bridge in C to interface directly with kernel device nodes for headless control.</li>
-            <li>Designed a lightweight TCP-based protocol (Port 1337) for real-time hardware orchestration over a distributed network.</li>
+            <li>Built a multi-node embedded system using a TL-MR3020 router to coordinate multiple external hardware modules.</li>
+            <li>Reduced the OpenWrt OS image to fit within a 4MB flash constraint and developed a C userspace interface for device interaction.</li>
+            <li>Designed and implemented lightweight communication protocols over TCP and UART to enable real-time hardware control.</li>
           </ul>
         </div>
       </div>
@@ -654,14 +680,14 @@ footer { padding: 44px 0; text-align: center; }
         <div class="card-img"><img src="bgyro.jpg" alt="B-Gyro Kernel"></div>
         <div class="card-body">
           <div class="card-meta">
-            <span class="card-title">B-Gyro Kernel</span>
-            <span class="card-date halted">⏸ Halted</span>
+            <span class="card-title">B-Gyro Kernel From Scratch (x86)</span>
+            <span class="card-date">Group of two</span>
           </div>
-          <span class="card-sub">C / x86 Assembly / OS Development</span>
+          <span class="card-sub">C / x86 Assembly · OS Development</span>
           <ul class="pts">
-            <li>Co-engineered a Multiboot-compliant 32-bit x86 OS from scratch, implementing GDT/IDT and basic interrupt handling.</li>
-            <li>Built fundamental drivers for PIT, RTC, and keyboard alongside a custom VGA text-mode subsystem for user interaction.</li>
-            <li>Utilized QEMU and GDB for low-level debugging of memory management and task scheduling kernel modules.</li>
+            <li>Developed a Multiboot-compliant 32-bit x86 operating system kernel from scratch using C and assembly language.</li>
+            <li>Implemented core system software including interrupt handling (GDT/IDT), hardware drivers (PIT, RTC), and PCI device enumeration.</li>
+            <li>Built a VGA text interface and an interactive shell, utilizing QEMU to debug and test system stability during development.</li>
           </ul>
         </div>
       </div>
@@ -687,25 +713,25 @@ footer { padding: 44px 0; text-align: center; }
         <div class="skill-box reveal">
           <h3>Systems</h3>
           <div class="tags">
-            <span class="tag">Linux Kernel</span><span class="tag">IIO Subsystem</span>
-            <span class="tag">OpenWrt</span><span class="tag">ISO 8583</span>
-            <span class="tag">TLV</span>
+            <span class="tag">Linux Kernel</span><span class="tag">Driver Dev</span>
+            <span class="tag">Cross-Compilation</span><span class="tag">TCP/IP</span>
+            <span class="tag">UART / SPI / I2C</span>
           </div>
         </div>
         <div class="skill-box reveal">
-          <h3>Hardware</h3>
+          <h3>Hardware & Embedded</h3>
           <div class="tags">
-            <span class="tag">ESP32</span><span class="tag">Arduino</span>
-            <span class="tag">PCB Analysis</span><span class="tag">Sensor Fusion</span>
-            <span class="tag">SPI / I2C</span>
+            <span class="tag">OpenWrt</span><span class="tag">ESP32</span>
+            <span class="tag">Arduino</span><span class="tag">PlatformIO</span>
+            <span class="tag">Circuit Analysis</span><span class="tag">Sensors</span>
           </div>
         </div>
         <div class="skill-box reveal">
           <h3>Tooling</h3>
           <div class="tags">
+            <span class="tag">Git</span><span class="tag">Make</span>
             <span class="tag">GDB</span><span class="tag">QEMU</span>
-            <span class="tag">Git</span><span class="tag">Kconfig</span>
-            <span class="tag">Make</span>
+            <span class="tag">Docker</span>
           </div>
         </div>
       </div>
@@ -730,17 +756,25 @@ footer { padding: 44px 0; text-align: center; }
 <div id="lb"><img id="lb-img" src="" alt="Preview"></div>
 
 <script>
+/* ── MOUSE TRACKING FOR CIRCUIT BACKGROUND ──────────── */
+document.addEventListener('mousemove', e => {
+  const x = e.clientX;
+  const y = e.clientY;
+  document.body.style.setProperty('--mouse-x', `${x}px`);
+  document.body.style.setProperty('--mouse-y', `${y}px`);
+});
+
 const $ = s => document.querySelector(s);
 const sleep = ms => new Promise(r => setTimeout(r, ms));
 
 /* ── BOOT ───────────────────────────────────────────── */
-const ASCII_LOGO = `   ___                        
+const ASCII_LOGO = `   ___                            
   / _ \\ _ __ __ _ _   _ _ __  
  | | | | '__/ _\` | | | | '_ \\ 
  | |_| | | | (_| | |_| | | | |
   \\___/|_|  \\__,_|\\__, |_| |_|
-                   __/ |      
-                  |___/       \n\n`;
+                  __/ |       
+                 |___/        \n\n`;
 
 const LOGS = [
   { cls:'ok',   t:'[  OK  ] Initializing kernel v6.9.4-lts ...'            },
@@ -767,11 +801,10 @@ async function boot() {
   const log = $('#boot-log');
   const cur = log.querySelector('.boot-cursor');
   for (let e of LOGS) {
-    const s = document.createElement('span'); // Changed back to span to avoid nested block issues
+    const s = document.createElement('span'); 
     s.className = 'boot-entry ' + e.cls;
     s.textContent = e.t;
     cur.before(s);
-    // Removed the explicit <br> injection.
     await sleep(250);
   }
 
@@ -818,7 +851,6 @@ function scrollReveal() {
   const obs = new IntersectionObserver(entries => {
     entries.forEach(e => {
       if (!e.isIntersecting) return;
-      /* stagger cards in the same parent */
       const siblings = [...e.target.parentElement.querySelectorAll('.reveal:not(.on)')];
       const idx = Math.max(0, siblings.indexOf(e.target));
       setTimeout(() => { e.target.classList.add('on'); obs.unobserve(e.target); }, idx * 55);
