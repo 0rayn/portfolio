@@ -1,982 +1,875 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taha Ed-Dafili | Portfolio</title>
-    <meta name="description" content="Portfolio of Taha Ed-Dafili, specializing in System & Kernel Development, Linux, and Embedded Hardware.">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;600;700&family=VT323&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg:        #080c10;
-            --bg2:       #0d1117;
-            --surface:   #111820;
-            --surface2:  #161d26;
-            --border:    #1e2d3d;
-            --border2:   #2a3f55;
-            --green:     #00e676;
-            --green-dim: #00c853;
-            --green-glow:#00e67622;
-            --cyan:      #18ffff;
-            --cyan-dim:  #00b8d4;
-            --amber:     #ffab00;
-            --red:       #ff1744;
-            --text:      #b0bec5;
-            --text-dim:  #546e7a;
-            --text-hi:   #eceff1;
-            --font-mono: 'JetBrains Mono', 'Courier New', monospace;
-            --font-vt:   'VT323', monospace;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taha Ed-Dafili · Systems Engineer</title>
+<meta name="description" content="Linux Kernel Mentee @ The Linux Foundation. Systems & Embedded Engineer.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,700;1,300&family=VT323&display=swap" rel="stylesheet">
+<style>
+/* ════════════════════════════════════════════════════════
+   TOKENS
+════════════════════════════════════════════════════════ */
+:root {
+  --bg:         #060b10;
+  --bg2:        #0a1018;
+  --surface:    #0e1620;
+  --surface2:   #132030;
+  --border:     #18293a;
+  --border2:    #243d55;
+  --green:      #00ff87;
+  --green-d:    #00cc6a;
+  --green-glow: rgba(0,255,135,0.08);
+  --amber:      #ffb300;
+  --cyan:       #00d4ff;
+  --text:       #7a99b0;
+  --text-mid:   #a8c0d0;
+  --text-hi:    #deeaf2;
+  --mono:       'IBM Plex Mono', 'Courier New', monospace;
+  --vt:         'VT323', monospace;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
 
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ════════════════════════════════════════════════════════
+   SELECTION & SCROLLBAR
+════════════════════════════════════════════════════════ */
+::selection { background: var(--green); color: var(--bg); }
+::-moz-selection { background: var(--green); color: var(--bg); }
 
-        html { scroll-behavior: smooth; }
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); border-left: 1px solid var(--border); }
+::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--green-d); }
 
-        body {
-            font-family: var(--font-mono);
-            background-color: var(--bg);
-            color: var(--text);
-            overflow-x: hidden;
-            cursor: default;
-        }
+/* ════════════════════════════════════════════════════════
+   BASE
+════════════════════════════════════════════════════════ */
+body {
+  font-family: var(--mono);
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
 
-        /* ═══════════════════════════════════════
-           SCANLINE + GRAIN OVERLAY
-        ═══════════════════════════════════════ */
-        body::before {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background: repeating-linear-gradient(
-                0deg,
-                transparent,
-                transparent 2px,
-                rgba(0,0,0,0.08) 2px,
-                rgba(0,0,0,0.08) 4px
-            );
-            pointer-events: none;
-            z-index: 9998;
-        }
+/* Scanlines */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent, transparent 3px,
+    rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px
+  );
+  pointer-events: none;
+  z-index: 9990;
+}
 
-        body::after {
-            content: '';
-            position: fixed;
-            inset: -50%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-            opacity: 0.35;
-            pointer-events: none;
-            z-index: 9997;
-            animation: grain 0.5s steps(1) infinite;
-        }
+/* Vignette & Grain */
+body::after {
+  content: '';
+  position: fixed; inset: -50%;
+  background-image: 
+    radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.6) 100%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.8;
+  pointer-events: none;
+  z-index: 9989;
+  animation: grain 0.5s steps(1) infinite;
+}
 
-        @keyframes grain {
-            0%  { transform: translate(0, 0); }
-            10% { transform: translate(-2%, -3%); }
-            20% { transform: translate(3%, 1%); }
-            30% { transform: translate(-1%, 4%); }
-            40% { transform: translate(4%, -2%); }
-            50% { transform: translate(-3%, 3%); }
-            60% { transform: translate(2%, -4%); }
-            70% { transform: translate(-4%, 1%); }
-            80% { transform: translate(1%, -1%); }
-            90% { transform: translate(3%, 4%); }
-           100% { transform: translate(0, 0); }
-        }
+/* ════════════════════════════════════════════════════════
+   BOOT SCREEN
+════════════════════════════════════════════════════════ */
+#boot {
+  position: fixed; inset: 0;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: clamp(32px, 8vw, 90px);
+  z-index: 9999;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+}
+#boot.out { 
+  opacity: 0; 
+  pointer-events: none; 
+  filter: blur(10px) brightness(2);
+}
 
-        /* ═══════════════════════════════════════
-           CIRCUIT BACKGROUND
-        ═══════════════════════════════════════ */
-        .bg-grid {
-            position: fixed;
-            inset: 0;
-            background-image:
-                linear-gradient(var(--border) 1px, transparent 1px),
-                linear-gradient(90deg, var(--border) 1px, transparent 1px);
-            background-size: 40px 40px;
-            opacity: 0.2;
-            pointer-events: none;
-            z-index: 0;
-        }
+.boot-logo {
+  font-family: var(--vt);
+  font-size: clamp(20px, 3.2vw, 42px);
+  color: var(--green);
+  line-height: 1.2;
+  text-shadow: 0 0 28px rgba(0,255,135,0.5);
+  margin-bottom: 30px;
+  white-space: pre; /* Essential for ASCII exact spacing */
+}
 
-        /* ═══════════════════════════════════════
-           BOOT SCREEN
-        ═══════════════════════════════════════ */
-        #boot-screen {
-            position: fixed;
-            inset: 0;
-            background: var(--bg);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: flex-start;
-            padding: 60px;
-            z-index: 9999;
-            transition: opacity 0.6s ease;
-        }
+.boot-log { font-size: 13px; line-height: 2.2; }
 
-        #boot-screen.fade-out { opacity: 0; pointer-events: none; }
+.boot-entry {
+  display: block;
+  opacity: 0;
+  animation: entryIn 0.1s ease forwards;
+}
+@keyframes entryIn { to { opacity: 1; } }
 
-        .boot-logo {
-            font-family: var(--font-vt);
-            font-size: clamp(28px, 4vw, 52px);
-            color: var(--green);
-            text-shadow: 0 0 20px var(--green), 0 0 60px var(--green-dim);
-            line-height: 1.1;
-            margin-bottom: 30px;
-            letter-spacing: 2px;
-        }
+.ok   { color: var(--green); }
+.warn { color: var(--amber); }
+.info { color: var(--text-hi); font-weight: bold; }
 
-        .boot-log {
-            font-size: 13px;
-            line-height: 2;
-            max-width: 560px;
-        }
+.boot-cursor {
+  display: inline-block; width: 10px; height: 16px;
+  background: var(--green); vertical-align: middle;
+  animation: blink 0.75s step-end infinite;
+  margin-left: 6px;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-        .boot-line { opacity: 0; animation: blink-in 0.1s ease forwards; }
+/* ════════════════════════════════════════════════════════
+   SITE (hidden until boot)
+════════════════════════════════════════════════════════ */
+#site { display: none; }
 
-        @keyframes blink-in { to { opacity: 1; } }
+/* ════════════════════════════════════════════════════════
+   NAV
+════════════════════════════════════════════════════════ */
+#nav {
+  position: sticky; top: 0; z-index: 500;
+  height: 48px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 clamp(16px, 4vw, 52px);
+  background: rgba(6,11,16,0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
 
-        .boot-ok   { color: var(--green); }
-        .boot-warn { color: var(--amber); }
-        .boot-cursor {
-            display: inline-block;
-            width: 9px;
-            height: 14px;
-            background: var(--green);
-            vertical-align: middle;
-            animation: cur-blink 0.8s step-end infinite;
-            margin-left: 4px;
-        }
-        @keyframes cur-blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+.nav-brand {
+  font-family: var(--vt);
+  font-size: 24px; letter-spacing: 4px;
+  color: var(--green);
+  text-shadow: 0 0 14px rgba(0,255,135,0.4);
+}
 
-        /* ═══════════════════════════════════════
-           STICKY NAV
-        ═══════════════════════════════════════ */
-        #site-nav {
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            background: rgba(8,12,16,0.92);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--border);
-            padding: 0 40px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 48px;
-            font-size: 12px;
-        }
+.nav-links { display: flex; gap: 28px; }
+.nav-links a {
+  font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: var(--text); text-decoration: none; transition: color 0.2s;
+  position: relative;
+  padding: 4px 0;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: 0; left: 0;
+  width: 0; height: 2px; background: var(--green); transition: width 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+.nav-links a:hover, .nav-links a.active { color: var(--green); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
 
-        .nav-brand { color: var(--green); letter-spacing: 3px; font-weight: 700; }
+.nav-right {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 11px; letter-spacing: 1px; color: var(--text);
+}
+.nav-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 8px var(--green);
+  animation: pulse 2.5s ease infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
 
-        .nav-links { display: flex; gap: 24px; }
-        .nav-links a {
-            color: var(--text-dim);
-            text-decoration: none;
-            letter-spacing: 1px;
-            font-size: 11px;
-            transition: color 0.2s;
-        }
-        .nav-links a:hover { color: var(--green); }
+/* ════════════════════════════════════════════════════════
+   LAYOUT
+════════════════════════════════════════════════════════ */
+.wrap {
+  max-width: 1020px; margin: 0 auto;
+  padding: 0 clamp(16px, 4vw, 40px);
+}
 
-        .nav-status {
-            font-size: 11px;
-            color: var(--text-dim);
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-        .status-dot {
-            width: 6px; height: 6px;
-            background: var(--green);
-            border-radius: 50%;
-            box-shadow: 0 0 6px var(--green);
-            animation: pulse 2s ease infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50%       { opacity: 0.5; transform: scale(0.8); }
-        }
+/* ════════════════════════════════════════════════════════
+   HERO
+════════════════════════════════════════════════════════ */
+#hero {
+  padding: 90px 0 80px;
+  border-bottom: 1px dashed var(--border2);
+  position: relative; overflow: hidden;
+}
+#hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(var(--border) 1px, transparent 1px),
+    linear-gradient(90deg, var(--border) 1px, transparent 1px);
+  background-size: 52px 52px; opacity: 0.15;
+  pointer-events: none;
+}
 
-        /* ═══════════════════════════════════════
-           MAIN LAYOUT
-        ═══════════════════════════════════════ */
-        #main-content {
-            display: none;
-            position: relative;
-            z-index: 1;
-        }
+.hero-tag {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--green-d); margin-bottom: 18px;
+  opacity: 0; animation: riseIn 0.5s 0.1s ease forwards;
+}
 
-        .container {
-            max-width: 980px;
-            margin: 0 auto;
-            padding: 60px 24px 80px;
-        }
+/* --- THE GLITCH --- */
+.hero-name {
+  font-family: var(--vt);
+  font-size: clamp(50px, 9.5vw, 96px);
+  color: var(--text-hi); 
+  line-height: 0.92; 
+  letter-spacing: 6px;
+  margin-bottom: 20px; 
+  display: inline-block;
+  opacity: 0; 
+  animation: riseIn 0.5s 0.25s ease forwards;
+  position: relative;
+}
+.hero-name::before {
+  content: attr(data-t); 
+  position: absolute; inset: 0;
+  font: inherit; letter-spacing: inherit; 
+  color: var(--cyan);
+  clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
+  opacity: 0; 
+  animation: glitch1 2.5s infinite; 
+  z-index: -1;
+}
+.hero-name::after {
+  content: attr(data-t); 
+  position: absolute; inset: 0;
+  font: inherit; letter-spacing: inherit; 
+  color: var(--green);
+  clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
+  opacity: 0; 
+  animation: glitch2 2.5s infinite; 
+  z-index: 1;
+}
 
-        /* ═══════════════════════════════════════
-           HEADER
-        ═══════════════════════════════════════ */
-        header {
-            padding-bottom: 48px;
-            margin-bottom: 72px;
-            border-bottom: 1px solid var(--border);
-            position: relative;
-        }
+@keyframes glitch1 {
+  0%, 90%, 100% { opacity: 0; transform: translate(0); }
+  91% { opacity: 0.8; transform: translate(-6px, 2px); }
+  92% { opacity: 0; }
+  93% { opacity: 0.8; transform: translate(6px, -2px); }
+  94% { opacity: 0; }
+}
+@keyframes glitch2 {
+  0%, 90%, 100% { opacity: 0; transform: translate(0); }
+  91% { opacity: 0.8; transform: translate(6px, 0); }
+  92% { opacity: 0; }
+  93% { opacity: 0.8; transform: translate(-6px, 3px); }
+  94% { opacity: 0; }
+}
 
-        .header-tag {
-            font-size: 11px;
-            color: var(--text-dim);
-            letter-spacing: 3px;
-            margin-bottom: 16px;
-        }
+@keyframes riseIn {
+  from { opacity:0; transform:translateY(16px); }
+  to   { opacity:1; transform:translateY(0); }
+}
 
-        h1 {
-            font-family: var(--font-vt);
-            font-size: clamp(48px, 8vw, 88px);
-            color: var(--text-hi);
-            line-height: 1;
-            letter-spacing: 4px;
-            text-shadow: 0 0 40px rgba(0,230,118,0.15);
-            margin-bottom: 12px;
-        }
+.hero-role {
+  font-size: 13px; letter-spacing: 2px; color: var(--green);
+  margin-bottom: 34px;
+  opacity: 0; animation: riseIn 0.5s 0.4s ease forwards;
+}
+.hero-links {
+  display: flex; flex-wrap: wrap; gap: 10px;
+  opacity: 0; animation: riseIn 0.5s 0.55s ease forwards;
+}
+.hero-links a {
+  font-size: 12px; letter-spacing: 1px; color: var(--text-mid);
+  text-decoration: none; padding: 8px 16px;
+  border: 1px solid var(--border2); border-radius: 2px;
+  transition: all 0.2s; background: var(--bg2);
+}
+.hero-links a:hover {
+  color: var(--bg); border-color: var(--green);
+  background: var(--green); box-shadow: 0 0 18px var(--green-glow);
+  font-weight: 600;
+}
+.hero-links .cv { color: var(--amber) !important; border-color: rgba(255,179,0,0.5) !important; }
+.hero-links .cv:hover {
+  background: var(--amber) !important; color: var(--bg) !important;
+  box-shadow: 0 0 18px rgba(255,179,0,0.2) !important;
+}
 
-        .glitch {
-            position: relative;
-            display: inline-block;
-        }
-        .glitch::before,
-        .glitch::after {
-            content: attr(data-text);
-            position: absolute;
-            inset: 0;
-            font-family: inherit;
-            font-size: inherit;
-            letter-spacing: inherit;
-        }
-        .glitch::before {
-            color: var(--cyan);
-            clip-path: polygon(0 30%, 100% 30%, 100% 50%, 0 50%);
-            animation: glitch1 4s infinite;
-            opacity: 0;
-        }
-        .glitch::after {
-            color: var(--red);
-            clip-path: polygon(0 60%, 100% 60%, 100% 80%, 0 80%);
-            animation: glitch2 4s infinite;
-            opacity: 0;
-        }
-        @keyframes glitch1 {
-            0%, 90%, 100% { opacity: 0; transform: translate(0); }
-            91% { opacity: 0.7; transform: translate(-3px, 1px); }
-            92% { opacity: 0; }
-            93% { opacity: 0.5; transform: translate(3px, -1px); }
-            94% { opacity: 0; }
-        }
-        @keyframes glitch2 {
-            0%, 91%, 100% { opacity: 0; transform: translate(0); }
-            92% { opacity: 0.6; transform: translate(3px); }
-            93% { opacity: 0; }
-            94% { opacity: 0.4; transform: translate(-3px); }
-            95% { opacity: 0; }
-        }
+/* ════════════════════════════════════════════════════════
+   SECTIONS
+════════════════════════════════════════════════════════ */
+.section {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border);
+}
+.sec-label {
+  display: flex; align-items: center;
+  margin-bottom: 48px;
+}
+.sec-prompt { color: var(--text-mid); font-size: 13px; font-weight: bold;}
+.sec-cmd    { color: var(--green);   font-size: 13px; }
+.sec-rule   { flex:1; height:1px; margin-left:18px; background: linear-gradient(90deg,var(--border2),transparent); }
 
-        .subtitle {
-            color: var(--green);
-            font-size: 13px;
-            letter-spacing: 2px;
-            margin-bottom: 28px;
-        }
+/* ════════════════════════════════════════════════════════
+   ABOUT TYPING
+════════════════════════════════════════════════════════ */
+#about-text {
+  font-size: 14px; line-height: 2; color: var(--text-hi);
+  max-width: 760px; min-height: 60px;
+}
+#about-cursor {
+  display: inline-block; width: 9px; height: 15px;
+  background: var(--green); vertical-align: middle; margin-left: 2px;
+  animation: blink 0.75s step-end infinite;
+}
 
-        .contact-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
+/* ════════════════════════════════════════════════════════
+   CARDS — cinematic image-left
+════════════════════════════════════════════════════════ */
+.card {
+  display: flex;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 3px; margin-bottom: 24px;
+  overflow: hidden; position: relative;
+  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
+}
+.card::after {
+  content: ''; position: absolute;
+  bottom: 0; left: 0; right: 0; height: 2px;
+  background: linear-gradient(90deg, var(--green), transparent);
+  opacity: 0; transition: opacity 0.3s;
+}
+.card:hover { border-color: var(--border2); box-shadow: 0 14px 40px rgba(0,0,0,0.4); transform: translateY(-3px);}
+.card:hover::after { opacity: 1; }
 
-        .contact-links a {
-            color: var(--text-dim);
-            text-decoration: none;
-            font-size: 12px;
-            letter-spacing: 1px;
-            padding: 5px 12px;
-            border: 1px solid var(--border);
-            border-radius: 3px;
-            transition: all 0.2s;
-        }
-        .contact-links a:hover {
-            color: var(--green);
-            border-color: var(--green);
-            background: var(--green-glow);
-            box-shadow: 0 0 12px var(--green-glow);
-        }
+.card-img {
+  width: 260px; flex-shrink: 0; position: relative; overflow: hidden;
+}
+.card-img img {
+  width: 100%; height: 100%; object-fit: cover; display: block;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94); cursor: zoom-in;
+  filter: grayscale(40%) contrast(1.1);
+}
+.card:hover .card-img img { transform: scale(1.06); filter: grayscale(0%) contrast(1.1); }
+.card-img::after {
+  content: ''; position: absolute; top:0; right:0;
+  width: 65px; height: 100%;
+  background: linear-gradient(90deg, transparent, var(--surface));
+  pointer-events: none;
+}
 
-        .resume-btn {
-            color: var(--amber) !important;
-            border-color: var(--amber) !important;
-        }
-        .resume-btn:hover {
-            background: rgba(255,171,0,0.1) !important;
-            box-shadow: 0 0 12px rgba(255,171,0,0.2) !important;
-        }
+.card-body {
+  flex: 1; padding: 26px 26px 26px 20px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.card-meta {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  flex-wrap: wrap; gap: 8px; margin-bottom: 6px;
+}
+.card-title { font-size: 15px; font-weight: 700; color: var(--text-hi); letter-spacing: 0.3px; }
+.card-date {
+  font-size: 11px; letter-spacing: 1px; color: var(--text); font-weight: bold;
+  background: var(--surface2); padding: 4px 10px;
+  border: 1px solid var(--border); border-radius: 2px; white-space: nowrap;
+}
+.card-date.active { color: var(--bg); border-color: var(--green); background: var(--green); }
+.card-date.halted { color: var(--amber); border-color: rgba(255,179,0,0.4); background: rgba(255,179,0,0.1); }
+.card-sub {
+  font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--cyan); opacity: 0.8; margin-bottom: 18px; display: block;
+}
 
-        /* ═══════════════════════════════════════
-           SECTIONS
-        ═══════════════════════════════════════ */
-        section { margin-bottom: 80px; }
+ul.pts { list-style: none; }
+ul.pts li {
+  position: relative; padding-left: 18px;
+  margin-bottom: 10px; font-size: 13px; line-height: 1.7; color: var(--text);
+}
+ul.pts li::before {
+  content: '▸'; position: absolute; left: 0; top: 2px;
+  color: var(--green-d); font-size: 13px;
+}
 
-        .section-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 32px;
-            gap: 0;
-        }
+/* ════════════════════════════════════════════════════════
+   SKILLS
+════════════════════════════════════════════════════════ */
+.skills-grid {
+  display: grid; grid-template-columns: repeat(auto-fit,minmax(210px,1fr)); gap: 16px;
+}
+.skill-box {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 3px; padding: 22px; transition: border-color 0.2s;
+}
+.skill-box:hover { border-color: var(--border2); }
+.skill-box h3 {
+  font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--green); margin-bottom: 16px;
+  padding-bottom: 12px; border-bottom: 1px dashed var(--border);
+}
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.tag {
+  font-size: 11px; padding: 5px 12px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 2px; color: var(--text-hi); letter-spacing: 0.5px;
+  transition: all 0.2s; cursor: default;
+}
+.tag:hover { border-color: var(--green); color: var(--bg); background: var(--green); font-weight:bold;}
 
-        .section-header::after {
-            content: '';
-            flex: 1;
-            height: 1px;
-            background: linear-gradient(90deg, var(--border), transparent);
-            margin-left: 20px;
-        }
+/* ════════════════════════════════════════════════════════
+   FOOTER
+════════════════════════════════════════════════════════ */
+footer { padding: 44px 0; text-align: center; }
+.footer-cmd  { color: var(--green); font-size: 13px; margin-bottom: 10px; font-weight: bold;}
+.footer-copy { font-size: 11px; letter-spacing: 1px; color: var(--text); }
+.footer-copy span { color: var(--border2); margin: 0 8px; }
 
-        .sh-prompt { color: var(--text-dim); font-size: 13px; margin-right: 8px; }
-        .sh-cmd    { color: var(--green);    font-size: 13px; }
+/* ════════════════════════════════════════════════════════
+   LIGHTBOX
+════════════════════════════════════════════════════════ */
+#lb {
+  display: none; position: fixed; inset: 0;
+  background: rgba(0,0,0,0.94); z-index: 9995;
+  justify-content: center; align-items: center;
+  cursor: zoom-out; backdrop-filter: blur(6px);
+}
+#lb img {
+  max-width: 86vw; max-height: 86vh;
+  border: 1px solid var(--green); border-radius: 3px;
+  box-shadow: 0 0 80px rgba(0,255,135,0.15);
+}
 
-        /* ═══════════════════════════════════════
-           ABOUT TYPING
-        ═══════════════════════════════════════ */
-        #typing-text {
-            font-size: 14px;
-            line-height: 1.9;
-            color: var(--text);
-            max-width: 720px;
-            min-height: 90px;
-        }
+/* ════════════════════════════════════════════════════════
+   SCROLL REVEAL
+════════════════════════════════════════════════════════ */
+.reveal { opacity:0; transform:translateY(22px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.reveal.on { opacity:1; transform:translateY(0); }
 
-        #typing-cursor {
-            display: inline-block;
-            width: 8px;
-            height: 15px;
-            background: var(--green);
-            vertical-align: middle;
-            margin-left: 2px;
-            animation: cur-blink 0.8s step-end infinite;
-        }
-
-        /* ═══════════════════════════════════════
-           CARDS
-        ═══════════════════════════════════════ */
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 24px;
-            margin-bottom: 20px;
-            position: relative;
-            transition: border-color 0.25s, box-shadow 0.25s, transform 0.25s;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0;
-            width: 3px; height: 100%;
-            background: linear-gradient(180deg, var(--green), var(--cyan-dim));
-            opacity: 0;
-            transition: opacity 0.25s;
-        }
-
-        .card:hover {
-            border-color: var(--border2);
-            box-shadow: 0 0 30px rgba(0,230,118,0.06), 0 8px 30px rgba(0,0,0,0.4);
-            transform: translateX(4px);
-        }
-        .card:hover::before { opacity: 1; }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 6px;
-            flex-wrap: wrap;
-            gap: 6px;
-        }
-
-        .card-title {
-            font-weight: 700;
-            color: var(--text-hi);
-            font-size: 15px;
-            letter-spacing: 0.5px;
-        }
-
-        .card-date {
-            font-size: 11px;
-            color: var(--text-dim);
-            background: var(--surface2);
-            padding: 3px 9px;
-            border-radius: 2px;
-            border: 1px solid var(--border);
-            white-space: nowrap;
-        }
-
-        .card-subtitle {
-            color: var(--cyan-dim);
-            font-size: 11px;
-            letter-spacing: 1.5px;
-            margin-bottom: 20px;
-            display: block;
-            text-transform: uppercase;
-        }
-
-        .card-body {
-            display: flex;
-            gap: 24px;
-            align-items: flex-start;
-        }
-
-        .card-text { flex: 1; }
-
-        .card-image {
-            width: 260px;
-            flex-shrink: 0;
-            border-radius: 3px;
-            border: 1px solid var(--border);
-            cursor: zoom-in;
-            object-fit: cover;
-            aspect-ratio: 16/10;
-            transition: border-color 0.2s, box-shadow 0.2s;
-            display: block;
-        }
-
-        .card-image:hover {
-            border-color: var(--green);
-            box-shadow: 0 0 20px rgba(0,230,118,0.15);
-        }
-
-        /* ═══════════════════════════════════════
-           LISTS
-        ═══════════════════════════════════════ */
-        ul { list-style: none; }
-
-        ul li {
-            position: relative;
-            padding-left: 22px;
-            margin-bottom: 10px;
-            font-size: 13px;
-            line-height: 1.7;
-            color: var(--text);
-        }
-
-        ul li::before {
-            content: '▸';
-            position: absolute;
-            left: 0;
-            color: var(--green-dim);
-            font-size: 12px;
-            top: 3px;
-        }
-
-        /* ═══════════════════════════════════════
-           SKILLS
-        ═══════════════════════════════════════ */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-        }
-
-        .skill-category {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 4px;
-            padding: 20px;
-            position: relative;
-            transition: border-color 0.2s;
-        }
-
-        .skill-category:hover { border-color: var(--border2); }
-
-        .skill-category h3 {
-            font-size: 10px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--green);
-            margin-bottom: 12px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .skill-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 10px;
-        }
-
-        .tag {
-            font-size: 11px;
-            padding: 3px 8px;
-            background: var(--surface2);
-            border: 1px solid var(--border);
-            border-radius: 2px;
-            color: var(--text);
-            letter-spacing: 0.5px;
-        }
-
-        /* ═══════════════════════════════════════
-           LIGHTBOX
-        ═══════════════════════════════════════ */
-        #lightbox {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.92);
-            z-index: 10000;
-            justify-content: center;
-            align-items: center;
-            cursor: zoom-out;
-            backdrop-filter: blur(4px);
-        }
-
-        #lightbox img {
-            max-width: 88vw;
-            max-height: 88vh;
-            border: 1px solid var(--border2);
-            border-radius: 4px;
-            box-shadow: 0 0 60px rgba(0,230,118,0.1);
-        }
-
-        .lightbox-close {
-            position: fixed;
-            top: 20px; right: 24px;
-            font-size: 24px;
-            color: var(--text-dim);
-            cursor: pointer;
-        }
-
-        /* ═══════════════════════════════════════
-           FOOTER
-        ═══════════════════════════════════════ */
-        footer {
-            text-align: center;
-            border-top: 1px solid var(--border);
-            padding-top: 36px;
-            color: var(--text-dim);
-            font-size: 12px;
-            line-height: 2;
-        }
-
-        footer .exit-cmd { color: var(--green); margin-bottom: 8px; }
-
-        /* ═══════════════════════════════════════
-           FADE-IN ANIMATION
-        ═══════════════════════════════════════ */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(16px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
-        }
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ═══════════════════════════════════════
-           RESPONSIVE
-        ═══════════════════════════════════════ */
-        @media (max-width: 700px) {
-            #boot-screen { padding: 32px; }
-            .container { padding: 40px 16px 60px; }
-            #site-nav { padding: 0 16px; }
-            .nav-links { display: none; }
-            .card-body { flex-direction: column-reverse; }
-            .card-image { width: 100%; aspect-ratio: 16/9; }
-            h1 { font-size: 52px; }
-        }
-    </style>
+/* ════════════════════════════════════════════════════════
+   RESPONSIVE
+════════════════════════════════════════════════════════ */
+@media (max-width: 640px) {
+  .card { flex-direction: column-reverse; }
+  .card-img { width:100%; height:200px; }
+  .card-img::after {
+    top:auto; bottom:0; left:0; right:0;
+    width:100%; height:50px;
+    background: linear-gradient(transparent, var(--surface));
+  }
+  .nav-links { display: none; }
+  .hero-name { letter-spacing: 3px; }
+}
+</style>
 </head>
 <body>
 
-<div class="bg-grid"></div>
-
-<!-- ═══ BOOT SCREEN ═══ -->
-<div id="boot-screen">
-    <div class="boot-logo" id="boot-logo"></div>
-    <div class="boot-log" id="boot-log"><span class="boot-cursor"></span></div>
+<div id="boot">
+  <pre class="boot-logo" id="boot-logo"></pre>
+  <div class="boot-log" id="boot-log">
+    <span class="boot-cursor"></span>
+  </div>
 </div>
 
-<!-- ═══ MAIN CONTENT ═══ -->
-<div id="main-content">
+<div id="site">
 
-    <!-- STICKY NAV -->
-    <nav id="site-nav">
-        <span class="nav-brand">0RAYN</span>
-        <div class="nav-links">
-            <a href="#about">about</a>
-            <a href="#experience">experience</a>
-            <a href="#volunteering">volunteer</a>
-            <a href="#projects">projects</a>
-            <a href="#skills">stack</a>
-        </div>
-        <div class="nav-status">
-            <div class="status-dot"></div>
-            <span>online</span>
-        </div>
-    </nav>
-
-    <div class="container">
-
-        <!-- HEADER -->
-        <header class="fade-in">
-            <div class="header-tag">// PORTFOLIO v2026</div>
-            <h1><span class="glitch" data-text="TAHA ED-DAFILI">TAHA ED-DAFILI</span></h1>
-            <div class="subtitle">Digital Technologies Architect &nbsp;·&nbsp; System &amp; Kernel Development</div>
-            <div class="contact-links">
-                <a href="https://github.com/Orayn" target="_blank">[ GitHub ]</a>
-                <a href="https://linkedin.com/in/taha-ed-dafili" target="_blank">[ LinkedIn ]</a>
-                <a href="https://0rayn.github.io/WhyNot/" target="_blank">[ Blog ]</a>
-                <a href="TAHA_CV.pdf" class="resume-btn">[ Resume.pdf ]</a>
-            </div>
-        </header>
-
-        <!-- ABOUT -->
-        <section id="about" class="fade-in">
-            <div class="section-header">
-                <span class="sh-prompt">user@host:~$&nbsp;</span>
-                <span class="sh-cmd">cat ~/about_me.txt</span>
-            </div>
-            <p id="typing-text"><span id="typing-cursor"></span></p>
-        </section>
-
-        <!-- EXPERIENCE -->
-        <section id="experience" class="fade-in">
-            <div class="section-header">
-                <span class="sh-prompt">user@host:~$&nbsp;</span>
-                <span class="sh-cmd">cat ~/experiences.log</span>
-            </div>
-
-            <div class="card fade-in">
-                <div class="card-header">
-                    <span class="card-title">Linux Kernel Mentee &nbsp;·&nbsp; The Linux Foundation</span>
-                    <span class="card-date">Mar 2026 – Present</span>
-                </div>
-                <span class="card-subtitle">Industrial I/O (IIO) Subsystem</span>
-                <div class="card-body">
-                    <div class="card-text">
-                        <ul>
-                            <li>Contributing to the Linux kernel by upstreaming C code for the IIO subsystem, targeting high-precision drivers like the ADXL345 and AD5504.</li>
-                            <li>Engineering hardware support with a focus on strict userspace ABI compliance to ensure mainline stability across kernel versions.</li>
-                            <li>Collaborating directly with subsystem maintainers via kernel mailing lists to refine driver architectures and hardware abstraction.</li>
-                        </ul>
-                    </div>
-                    <img class="card-image" src="lfx.jpeg" alt="LFX Mentorship">
-                </div>
-            </div>
-
-            <div class="card fade-in">
-                <div class="card-header">
-                    <span class="card-title">Mentor – IoT &amp; Electronics &nbsp;·&nbsp; YTCA (UM6P)</span>
-                    <span class="card-date">Feb 2025 – Jul 2025</span>
-                </div>
-                <span class="card-subtitle">Youth Tech Challenge Africa | Multi-national Hackathon</span>
-                <div class="card-body">
-                    <div class="card-text">
-                        <ul>
-                            <li>Taught foundational IoT concepts to multinational teams from Morocco and Cameroon, focusing on sensor fusion and rapid prototyping.</li>
-                            <li>Guided students through the development of smart-city prototypes using sustainable design principles and real-time monitoring.</li>
-                            <li>Accompanied participants from preselection to final hackathon, providing high-level system architecture and creative technical support.</li>
-                        </ul>
-                    </div>
-                    <img class="card-image" src="ytca.jpg" alt="YTCA Mentorship">
-                </div>
-            </div>
-
-            <div class="card fade-in">
-                <div class="card-header">
-                    <span class="card-title">C Developer Intern &nbsp;·&nbsp; M2M Group</span>
-                    <span class="card-date">Jul 2024 – Jan 2025</span>
-                </div>
-                <span class="card-subtitle">Financial Transaction Systems &amp; POS Optimization</span>
-                <div class="card-body">
-                    <div class="card-text">
-                        <ul>
-                            <li>Optimized mission-critical backend authorization servers in C, leveraging expertise in ISO 8583 and TLV data structures.</li>
-                            <li>Utilized advanced SQL scripting and low-level log analysis to resolve complex system bottlenecks and race conditions.</li>
-                            <li>Ensured quality and certification of embedded applications for POS terminals, bridging hardware and secure payment gateways.</li>
-                        </ul>
-                    </div>
-                    <img class="card-image" src="tpe.webp" alt="M2M Internship">
-                </div>
-            </div>
-        </section>
-
-        <!-- VOLUNTEERING -->
-        <section id="volunteering" class="fade-in">
-            <div class="section-header">
-                <span class="sh-prompt">user@host:~$&nbsp;</span>
-                <span class="sh-cmd">cat ~/volunteering.log</span>
-            </div>
-
-            <div class="card fade-in">
-                <div class="card-header">
-                    <span class="card-title">Vice President &nbsp;·&nbsp; Leet Makers Club</span>
-                    <span class="card-date">Aug 2025 – Present</span>
-                </div>
-                <span class="card-subtitle">1337 | Hardware Hacking &amp; Robotics</span>
-                <div class="card-body">
-                    <div class="card-text">
-                        <ul>
-                            <li>Managing club-wide robotics initiatives and conducting technical workshops on embedded Linux and PCB reverse engineering.</li>
-                            <li>Overseeing strategic planning and event organization to foster a culture of first-principles thinking in hardware at 1337.</li>
-                            <li>Mentoring new members on low-level firmware development and hardware-software interfacing for IoT projects.</li>
-                        </ul>
-                    </div>
-                    <img class="card-image" src="leet.jpg" alt="Leet Makers">
-                </div>
-            </div>
-
-            <div class="card fade-in">
-                <div class="card-header">
-                    <span class="card-title">Technical Lead &nbsp;·&nbsp; Archi&amp;Tech Club</span>
-                    <span class="card-date">Feb 2025 – Present</span>
-                </div>
-                <span class="card-subtitle">Architecture Technology Club @ UM6P</span>
-                <div class="card-body">
-                    <div class="card-text">
-                        <ul>
-                            <li>Integrating hardware, IoT, and robotics into architectural design to build sensor-responsive environments.</li>
-                            <li>Directing technical challenges and hardware logistics for the LDC Competition as the primary technical advisor.</li>
-                            <li>Facilitating workshops on rapid prototyping, bridging the gap between digital modeling and functional electronics.</li>
-                        </ul>
-                    </div>
-                    <img class="card-image" src="archi.jpg" alt="Archi Club">
-                </div>
-            </div>
-        </section>
-
-        <!-- PROJECTS -->
-        <section id="projects" class="fade-in">
-            <div class="section-header">
-                <span class="sh-prompt">user@host:~$&nbsp;</span>
-                <span class="sh-cmd">ls -l ~/projects/</span>
-            </div>
-
-            <div class="card fade-in">
-                <div class="card-header">
-                    <span class="card-title">The 3020 Project</span>
-                    <span class="card-date" style="color:var(--green);border-color:var(--green);background:var(--green-glow)">● Active</span>
-                </div>
-                <span class="card-subtitle">Founder &amp; Maintainer · C / OpenWrt</span>
-                <div class="card-body">
-                    <div class="card-text">
-                        <ul>
-                            <li>Repurposing legacy TL-MR3020 routers into networked SBCs by stripping OpenWrt OS to fit within 4MB flash constraints.</li>
-                            <li>Engineered a custom userspace keyboard bridge in C to interface directly with kernel device nodes for headless control.</li>
-                            <li>Designed a lightweight TCP-based protocol (Port 1337) for real-time hardware orchestration over a distributed network.</li>
-                        </ul>
-                    </div>
-                    <img class="card-image" src="3020.webp" alt="3020 Project">
-                </div>
-            </div>
-
-            <div class="card fade-in">
-                <div class="card-header">
-                    <span class="card-title">ESP-VGA-Displayer</span>
-                    <span class="card-date">Individual</span>
-                </div>
-                <span class="card-subtitle">C++ / ESP32 / Low-level Signal Gen</span>
-                <div class="card-body">
-                    <div class="card-text">
-                        <ul>
-                            <li>Built a TCP/IP VGA adapter on ESP32, bit-banging signals while maintaining a stable networking stack for headless systems.</li>
-                            <li>Developed a newline-terminated rendering protocol for real-time console text output over a networked interface.</li>
-                            <li>Implemented graphics primitives over a custom networking layer, optimizing the ESP32 memory footprint for concurrent tasks.</li>
-                        </ul>
-                    </div>
-                    <img class="card-image" src="espdisplayer2.jpg" alt="ESP VGA">
-                </div>
-            </div>
-
-            <div class="card fade-in">
-                <div class="card-header">
-                    <span class="card-title">B-Gyro Kernel</span>
-                    <span class="card-date" style="color:var(--amber);border-color:var(--amber)">⏸ Halted</span>
-                </div>
-                <span class="card-subtitle">C / x86 Assembly / OS Development</span>
-                <div class="card-body">
-                    <div class="card-text">
-                        <ul>
-                            <li>Co-engineered a Multiboot-compliant 32-bit x86 OS from scratch, implementing GDT/IDT and basic interrupt handling.</li>
-                            <li>Built fundamental drivers for PIT, RTC, and keyboard alongside a custom VGA text-mode subsystem for user interaction.</li>
-                            <li>Utilized QEMU and GDB for low-level debugging of memory management and task scheduling kernel modules.</li>
-                        </ul>
-                    </div>
-                    <img class="card-image" src="bgyro.jpg" alt="B-Gyro Kernel">
-                </div>
-            </div>
-        </section>
-
-        <!-- SKILLS -->
-        <section id="skills" class="fade-in">
-            <div class="section-header">
-                <span class="sh-prompt">user@host:~$&nbsp;</span>
-                <span class="sh-cmd">cat ~/tech_stack.sh</span>
-            </div>
-            <div class="skills-grid">
-                <div class="skill-category">
-                    <h3>Languages</h3>
-                    <div class="skill-tags">
-                        <span class="tag">C</span>
-                        <span class="tag">C++</span>
-                        <span class="tag">x86 ASM</span>
-                        <span class="tag">Python</span>
-                        <span class="tag">Bash</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Systems</h3>
-                    <div class="skill-tags">
-                        <span class="tag">Linux Kernel</span>
-                        <span class="tag">IIO Subsystem</span>
-                        <span class="tag">OpenWrt</span>
-                        <span class="tag">ISO 8583</span>
-                    </div>
-                </div>
-                <div class="skill-category">
-                    <h3>Hardware</h3>
-                    <div class="skill-tags">
-                        <span class="tag">ESP32</span>
-                        <span class="tag">Arduino</span>
-                        <span class="tag">PCB Analysis</span>
-                        <span class="tag">Sensor Fusion</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer>
-            <p class="exit-cmd">user@host:~$ exit</p>
-            <p>© 2026 Taha Ed-Dafili &nbsp;·&nbsp; Built from first principles.</p>
-        </footer>
+  <nav id="nav">
+    <span class="nav-brand">0RAYN</span>
+    <div class="nav-links">
+      <a href="#about"       data-sec="about">~/about</a>
+      <a href="#experience"  data-sec="experience">~/experience</a>
+      <a href="#volunteering" data-sec="volunteering">~/volunteer</a>
+      <a href="#projects"    data-sec="projects">~/projects</a>
+      <a href="#skills"      data-sec="skills">~/stack</a>
     </div>
+    <div class="nav-right">
+      <div class="nav-dot"></div>
+      <span id="clock"></span>
+    </div>
+  </nav>
+
+  <section id="hero-sec">
+    <div class="wrap">
+      <div id="hero">
+        <div class="hero-tag">// kernel &amp; systems engineer · portfolio v2026</div>
+        <div class="hero-name" data-t="TAHA ED-DAFILI">TAHA ED-DAFILI</div>
+        <div class="hero-role">Digital Technologies Architect &nbsp;·&nbsp; Linux Kernel &amp; Embedded Systems</div>
+        <div class="hero-links">
+          <a href="https://github.com/Orayn" target="_blank">[ GitHub ]</a>
+          <a href="https://linkedin.com/in/taha-ed-dafili" target="_blank">[ LinkedIn ]</a>
+          <a href="https://0rayn.github.io/WhyNot/" target="_blank">[ Blog ]</a>
+          <a href="TAHA_CV.pdf" class="cv">[ Resume.pdf ]</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="wrap">
+      <div class="sec-label reveal">
+        <span class="sec-prompt">user@host:~$&nbsp;</span>
+        <span class="sec-cmd">cat about_me.txt</span>
+        <div class="sec-rule"></div>
+      </div>
+      <p id="about-text"><span id="about-cursor"></span></p>
+    </div>
+  </section>
+
+  <section id="experience" class="section">
+    <div class="wrap">
+      <div class="sec-label reveal">
+        <span class="sec-prompt">user@host:~$&nbsp;</span>
+        <span class="sec-cmd">cat experiences.log</span>
+        <div class="sec-rule"></div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-img"><img src="lfx.jpeg" alt="LFX Mentorship"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-title">Linux Kernel Mentee &nbsp;·&nbsp; The Linux Foundation</span>
+            <span class="card-date active">● Mar 2026 – Present</span>
+          </div>
+          <span class="card-sub">Industrial I/O (IIO) Subsystem</span>
+          <ul class="pts">
+            <li>Contributing to the Linux kernel by upstreaming C code for the IIO subsystem, targeting high-precision drivers like the ADXL345 and AD5504.</li>
+            <li>Engineering hardware support with a focus on strict userspace ABI compliance to ensure mainline stability across kernel versions.</li>
+            <li>Collaborating directly with subsystem maintainers via kernel mailing lists to refine driver architectures and hardware abstraction.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-img"><img src="ytca.jpg" alt="YTCA Mentorship"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-title">Mentor – IoT &amp; Electronics &nbsp;·&nbsp; YTCA (UM6P)</span>
+            <span class="card-date">Feb 2025 – Jul 2025</span>
+          </div>
+          <span class="card-sub">Youth Tech Challenge Africa · Multi-national Hackathon</span>
+          <ul class="pts">
+            <li>Taught foundational IoT concepts to multinational teams from Morocco and Cameroon, focusing on sensor fusion and rapid prototyping.</li>
+            <li>Guided students through the development of smart-city prototypes using sustainable design principles and real-time monitoring.</li>
+            <li>Accompanied participants from preselection to final hackathon, providing high-level system architecture and creative technical support.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-img"><img src="tpe.webp" alt="M2M Group Internship"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-title">C Developer Intern &nbsp;·&nbsp; M2M Group</span>
+            <span class="card-date">Jul 2024 – Jan 2025</span>
+          </div>
+          <span class="card-sub">Financial Transaction Systems &amp; POS Optimization</span>
+          <ul class="pts">
+            <li>Optimized mission-critical backend authorization servers in C, leveraging expertise in ISO 8583 and TLV data structures.</li>
+            <li>Utilized advanced SQL scripting and low-level log analysis to resolve complex system bottlenecks and race conditions.</li>
+            <li>Ensured quality and certification of embedded applications for POS terminals, bridging hardware and secure payment gateways.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="volunteering" class="section">
+    <div class="wrap">
+      <div class="sec-label reveal">
+        <span class="sec-prompt">user@host:~$&nbsp;</span>
+        <span class="sec-cmd">cat volunteering.log</span>
+        <div class="sec-rule"></div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-img"><img src="leet.jpg" alt="Leet Makers Club"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-title">Vice President &nbsp;·&nbsp; Leet Makers Club</span>
+            <span class="card-date active">● Aug 2025 – Present</span>
+          </div>
+          <span class="card-sub">1337 · Hardware Hacking &amp; Robotics</span>
+          <ul class="pts">
+            <li>Managing club-wide robotics initiatives and conducting technical workshops on embedded Linux and PCB reverse engineering.</li>
+            <li>Overseeing strategic planning and event organization to foster a culture of first-principles thinking in hardware at 1337.</li>
+            <li>Mentoring new members on low-level firmware development and hardware-software interfacing for IoT projects.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-img"><img src="archi.jpg" alt="Archi Tech Club"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-title">Technical Lead &nbsp;·&nbsp; Archi&amp;Tech Club</span>
+            <span class="card-date active">● Feb 2025 – Present</span>
+          </div>
+          <span class="card-sub">Architecture Technology Club @ UM6P</span>
+          <ul class="pts">
+            <li>Integrating hardware, IoT, and robotics into architectural design to build sensor-responsive environments.</li>
+            <li>Directing technical challenges and hardware logistics for the LDC Competition as the primary technical advisor.</li>
+            <li>Facilitating workshops on rapid prototyping, bridging the gap between digital modeling and functional electronics.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="section">
+    <div class="wrap">
+      <div class="sec-label reveal">
+        <span class="sec-prompt">user@host:~$&nbsp;</span>
+        <span class="sec-cmd">ls -lh ~/projects/</span>
+        <div class="sec-rule"></div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-img"><img src="3020.webp" alt="The 3020 Project"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-title">The 3020 Project</span>
+            <span class="card-date active">● Active</span>
+          </div>
+          <span class="card-sub">Founder &amp; Maintainer · C / OpenWrt</span>
+          <ul class="pts">
+            <li>Repurposing legacy TL-MR3020 routers into networked SBCs by stripping OpenWrt OS to fit within 4MB flash constraints.</li>
+            <li>Engineered a custom userspace keyboard bridge in C to interface directly with kernel device nodes for headless control.</li>
+            <li>Designed a lightweight TCP-based protocol (Port 1337) for real-time hardware orchestration over a distributed network.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-img"><img src="espdisplayer2.jpg" alt="ESP VGA Displayer"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-title">ESP-VGA-Displayer</span>
+            <span class="card-date">Individual</span>
+          </div>
+          <span class="card-sub">C++ / ESP32 / Low-level Signal Generation</span>
+          <ul class="pts">
+            <li>Built a TCP/IP VGA adapter on ESP32, bit-banging signals while maintaining a stable networking stack for headless systems.</li>
+            <li>Developed a newline-terminated rendering protocol for real-time console text output over a networked interface.</li>
+            <li>Implemented graphics primitives over a custom networking layer, optimizing the ESP32 memory footprint for concurrent tasks.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card reveal">
+        <div class="card-img"><img src="bgyro.jpg" alt="B-Gyro Kernel"></div>
+        <div class="card-body">
+          <div class="card-meta">
+            <span class="card-title">B-Gyro Kernel</span>
+            <span class="card-date halted">⏸ Halted</span>
+          </div>
+          <span class="card-sub">C / x86 Assembly / OS Development</span>
+          <ul class="pts">
+            <li>Co-engineered a Multiboot-compliant 32-bit x86 OS from scratch, implementing GDT/IDT and basic interrupt handling.</li>
+            <li>Built fundamental drivers for PIT, RTC, and keyboard alongside a custom VGA text-mode subsystem for user interaction.</li>
+            <li>Utilized QEMU and GDB for low-level debugging of memory management and task scheduling kernel modules.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="section">
+    <div class="wrap">
+      <div class="sec-label reveal">
+        <span class="sec-prompt">user@host:~$&nbsp;</span>
+        <span class="sec-cmd">cat tech_stack.sh</span>
+        <div class="sec-rule"></div>
+      </div>
+      <div class="skills-grid">
+        <div class="skill-box reveal">
+          <h3>Languages</h3>
+          <div class="tags">
+            <span class="tag">C</span><span class="tag">C++</span>
+            <span class="tag">x86 Assembly</span><span class="tag">Python</span>
+            <span class="tag">Bash</span>
+          </div>
+        </div>
+        <div class="skill-box reveal">
+          <h3>Systems</h3>
+          <div class="tags">
+            <span class="tag">Linux Kernel</span><span class="tag">IIO Subsystem</span>
+            <span class="tag">OpenWrt</span><span class="tag">ISO 8583</span>
+            <span class="tag">TLV</span>
+          </div>
+        </div>
+        <div class="skill-box reveal">
+          <h3>Hardware</h3>
+          <div class="tags">
+            <span class="tag">ESP32</span><span class="tag">Arduino</span>
+            <span class="tag">PCB Analysis</span><span class="tag">Sensor Fusion</span>
+            <span class="tag">SPI / I2C</span>
+          </div>
+        </div>
+        <div class="skill-box reveal">
+          <h3>Tooling</h3>
+          <div class="tags">
+            <span class="tag">GDB</span><span class="tag">QEMU</span>
+            <span class="tag">Git</span><span class="tag">Kconfig</span>
+            <span class="tag">Make</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p class="footer-cmd">user@host:~$ exit</p>
+      <p class="footer-copy">
+        © 2026 Taha Ed-Dafili
+        <span>·</span>
+        Built from first principles.
+        <span>·</span>
+        <span id="uptime" style="color:var(--green-d)"></span>
+      </p>
+    </div>
+  </footer>
+
 </div>
 
-<!-- LIGHTBOX -->
-<div id="lightbox">
-    <span class="lightbox-close">✕</span>
-    <img id="lightbox-img" src="" alt="Preview">
-</div>
+<div id="lb"><img id="lb-img" src="" alt="Preview"></div>
 
 <script>
-    // ── BOOT SEQUENCE ────────────────────────────────
-    const LOGO = `   ___  _ __ __ _ _   _ _ __
-  / _ \\| '__/ _\` | | | | '_ \\
- | (_) | | | (_| | |_| | | | |
+const $ = s => document.querySelector(s);
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+/* ── BOOT ───────────────────────────────────────────── */
+const ASCII_LOGO = `   ___                        
+  / _ \\ _ __ __ _ _   _ _ __  
+ | | | | '__/ _\` | | | | '_ \\ 
+ | |_| | | | (_| | |_| | | | |
   \\___/|_|  \\__,_|\\__, |_| |_|
-                  |___/`;
+                   __/ |      
+                  |___/       \n\n`;
 
-    const LOGS = [
-        { cls: 'boot-ok',   text: '[  OK  ] Initializing Linux kernel v6.9.0-lts...'   },
-        { cls: 'boot-ok',   text: '[  OK  ] Loading modules: iio, gpio, spi, i2c...'   },
-        { cls: 'boot-ok',   text: '[  OK  ] Mounting /home/0rayn ...'                   },
-        { cls: 'boot-ok',   text: '[  OK  ] Establishing secure connection (AES-256)...' },
-        { cls: 'boot-warn', text: '[ WARN ] High entropy detected in kernel stack...'   },
-        { cls: 'boot-ok',   text: '[  OK  ] All systems nominal.'                        },
-        { cls: '',          text: 'Executing /usr/bin/portfolio ...'                     },
-    ];
+const LOGS = [
+  { cls:'ok',   t:'[  OK  ] Initializing kernel v6.9.4-lts ...'            },
+  { cls:'ok',   t:'[  OK  ] Loading modules: iio, spi, i2c, gpio ...'      },
+  { cls:'ok',   t:'[  OK  ] Mounting /home/0rayn ...'                      },
+  { cls:'warn', t:'[ WARN ] High entropy detected — nominal.'              },
+  { cls:'ok',   t:'[  OK  ] Establishing secure session (AES-256-GCM) ...' },
+  { cls:'ok',   t:'[  OK  ] All subsystems nominal.'                       },
+  { cls:'info', t:'$ Executing /usr/bin/portfolio ...'                     },
+];
 
-    const ABOUT = "I am a fifth-year engineering student at 1337-UM6P (42 Network) specializing in the Kernel and Systems branch. My technical philosophy is rooted in first-principles thinking: I build systems from the ground up to truly understand how they work. While my core focus lies in Linux kernel development and driver engineering, I am also deeply involved in hardware hacking and peer-to-peer mentoring.";
+async function boot() {
+  const bootLogo = $('#boot-logo');
+  
+  /* Type out ASCII logo character by character */
+  for (let char of ASCII_LOGO) {
+    bootLogo.textContent += char;
+    await sleep(2); // Extremely fast typing effect
+  }
+  
+  await sleep(150);
 
-    const bootLogo = document.getElementById('boot-logo');
-    const bootLog  = document.getElementById('boot-log');
+  /* Log entries */
+  const log = $('#boot-log');
+  const cur = log.querySelector('.boot-cursor');
+  for (let e of LOGS) {
+    const s = document.createElement('span'); // Changed back to span to avoid nested block issues
+    s.className = 'boot-entry ' + e.cls;
+    s.textContent = e.t;
+    cur.before(s);
+    // Removed the explicit <br> injection.
+    await sleep(250);
+  }
 
-    function sleep(ms) { return new Promise(r => setTimeout(r, ms)); }
+  await sleep(400);
+  $('#boot').classList.add('out');
+  await sleep(800);
+  $('#boot').style.display = 'none';
+  $('#site').style.display = 'block';
+  initSite();
+}
 
-    async function runBoot() {
-        // Print ASCII logo char by char
-        const logoChars = LOGO.split('');
-        for (let c of logoChars) {
-            bootLogo.textContent += c;
-            await sleep(8);
-        }
-        await sleep(200);
+/* ── SITE ───────────────────────────────────────────── */
+function initSite() {
+  tickClock();
+  scrollReveal();
+  navHighlight();
+  lightbox();
+  tickUptime();
+  setTimeout(typeAbout, 350);
+}
 
-        // Print log lines
-        for (let line of LOGS) {
-            const span = document.createElement('span');
-            span.className = 'boot-line ' + (line.cls || '');
-            span.textContent = line.text;
-            bootLog.querySelector('.boot-cursor').before(span);
-            bootLog.querySelector('.boot-cursor').before(document.createElement('br'));
-            await sleep(280);
-        }
+/* ── CLOCK ──────────────────────────────────────────── */
+function tickClock() {
+  const el = $('#clock');
+  const pad = n => String(n).padStart(2,'0');
+  const t = () => { const d=new Date(); el.textContent=`${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`; };
+  t(); setInterval(t, 1000);
+}
 
-        await sleep(400);
+/* ── UPTIME ─────────────────────────────────────────── */
+function tickUptime() {
+  const el = $('#uptime');
+  const s0 = Date.now();
+  const pad = n => String(n).padStart(2,'0');
+  const t = () => {
+    const s = Math.floor((Date.now()-s0)/1000);
+    el.textContent = `uptime ${pad(Math.floor(s/3600))}:${pad(Math.floor((s%3600)/60))}:${pad(s%60)}`;
+  };
+  t(); setInterval(t, 1000);
+}
 
-        // Fade out boot screen
-        const bs = document.getElementById('boot-screen');
-        bs.classList.add('fade-out');
-
-        await sleep(650);
-        bs.style.display = 'none';
-
-        // Show main
-        const main = document.getElementById('main-content');
-        main.style.display = 'block';
-
-        // Trigger fade-ins
-        triggerFadeIns();
-
-        // Start typing after a brief pause
-        await sleep(300);
-        startTyping();
-    }
-
-    // ── SCROLL FADE-INS ──────────────────────────────
-    function triggerFadeIns() {
-        const els = document.querySelectorAll('.fade-in');
-        const obs = new IntersectionObserver((entries) => {
-            entries.forEach(e => {
-                if (e.isIntersecting) {
-                    e.target.classList.add('visible');
-                    obs.unobserve(e.target);
-                }
-            });
-        }, { threshold: 0.08 });
-        els.forEach(el => obs.observe(el));
-    }
-
-    // ── TYPING EFFECT ────────────────────────────────
-    function startTyping() {
-        const target  = document.getElementById('typing-text');
-        const cursor  = document.getElementById('typing-cursor');
-        let i = 0;
-        function tick() {
-            if (i < ABOUT.length) {
-                cursor.before(document.createTextNode(ABOUT[i]));
-                i++;
-                setTimeout(tick, 14);
-            }
-        }
-        tick();
-    }
-
-    // ── LIGHTBOX ─────────────────────────────────────
-    const lb    = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lightbox-img');
-
-    document.querySelectorAll('.card-image').forEach(img => {
-        img.addEventListener('click', () => {
-            lb.style.display = 'flex';
-            lbImg.src = img.src;
-        });
+/* ── SCROLL REVEAL ──────────────────────────────────── */
+function scrollReveal() {
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (!e.isIntersecting) return;
+      /* stagger cards in the same parent */
+      const siblings = [...e.target.parentElement.querySelectorAll('.reveal:not(.on)')];
+      const idx = Math.max(0, siblings.indexOf(e.target));
+      setTimeout(() => { e.target.classList.add('on'); obs.unobserve(e.target); }, idx * 55);
     });
-    lb.addEventListener('click', () => lb.style.display = 'none');
+  }, { threshold: 0.05 });
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+}
 
-    // ── START ─────────────────────────────────────────
-    window.onload = runBoot;
+/* ── NAV ACTIVE ─────────────────────────────────────── */
+function navHighlight() {
+  const ids = ['about','experience','volunteering','projects','skills'];
+  const links = {};
+  ids.forEach(id => { links[id] = document.querySelector(`[data-sec="${id}"]`); });
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && links[e.target.id]) {
+        Object.values(links).forEach(l => l && l.classList.remove('active'));
+        links[e.target.id].classList.add('active');
+      }
+    });
+  }, { rootMargin: '-20% 0px -60% 0px' }); 
+  ids.forEach(id => { const el = document.getElementById(id); if(el) obs.observe(el); });
+}
+
+/* ── TYPING ─────────────────────────────────────────── */
+const ABOUT = "I am a fifth-year engineering student at 1337-UM6P (42 Network) specializing in the Kernel and Systems branch. My technical philosophy is rooted in first-principles thinking: I build systems from the ground up to truly understand how they work. While my core focus lies in Linux kernel development and driver engineering, I am also deeply involved in hardware hacking and peer-to-peer mentoring.";
+
+function typeAbout() {
+  const target = $('#about-text');
+  const cursor = $('#about-cursor');
+  let i = 0;
+  const tick = () => {
+    if (i < ABOUT.length) {
+      cursor.before(document.createTextNode(ABOUT[i++]));
+      setTimeout(tick, 15);
+    }
+  };
+  tick();
+}
+
+/* ── LIGHTBOX ───────────────────────────────────────── */
+function lightbox() {
+  const lb = $('#lb'), img = $('#lb-img');
+  document.querySelectorAll('.card-img img').forEach(el => {
+    el.addEventListener('click', () => { lb.style.display='flex'; img.src=el.src; });
+  });
+  lb.addEventListener('click', () => lb.style.display='none');
+  document.addEventListener('keydown', e => { if(e.key==='Escape') lb.style.display='none'; });
+}
+
+window.addEventListener('load', boot);
 </script>
 </body>
 </html>
